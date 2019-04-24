@@ -1,23 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+import KakaoLogin from './component/KakaoLogin';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        id:<input type="text"/>
+        pw:<input type="text"/>
+        <KakaoLogin/>
+
       </header>
     </div>
   );
