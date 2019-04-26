@@ -8,8 +8,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 function InitComponent(){
   return (
     <div className="App">
-      id:<input type="text"/><br/>
-      pw:<input type="text"/><br/>
       <a href="">한빗코 로그인</a>
     </div>
   )
@@ -27,7 +25,7 @@ function App() {
             <li><Link to="/signup/">회원가입(signup)</Link></li>
           </ul>
         </nav>
-        <Route path="/" exact component={InitComponent} />
+        <Route path="/" exact component={KakaoLogin} />
         <Route path="/login/" component={KakaoLogin} />
         <Route path="/finder/" component={BibleFinder} />
         <Route path="/signup/" component={Signup} />
