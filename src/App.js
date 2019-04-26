@@ -1,23 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
 import KakaoLogin from './component/KakaoLogin';
+import BibleFinder from './component/BibleFinder';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+function InitComponent(){
+  return (
+    <div className="App">
+      id:<input type="text"/><br/>
+      pw:<input type="text"/><br/>
+      <a href="">한빗코 로그인</a>
+    </div>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        id:<input type="text"/>
-        pw:<input type="text"/>
-        <KakaoLogin/>
-
-      </header>
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login/">KakaoLogin</Link>
+            </li>
+            <li>
+              <Link to="/finder/">Finder</Link>
+            </li>
+          </ul>
+        </nav>
+        <Route path="/" exact component={InitComponent} />
+        <Route path="/login/" component={KakaoLogin} />
+        <Route path="/finder/" component={BibleFinder} />
+      </div>
+    </Router>
   );
 }
 
