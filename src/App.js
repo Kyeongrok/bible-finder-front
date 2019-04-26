@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import KakaoLogin from './component/KakaoLogin';
 import BibleFinder from './component/BibleFinder';
-import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function InitComponent(){
