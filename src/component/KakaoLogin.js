@@ -4,36 +4,29 @@ import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
 
 class KakaoLogin extends Component{
-
-  hello(kkkk){
-    console.log(kkkk);
+  constructor(props) {
+    super(props);
   }
 
   handleClickLoginButton() {
     console.log("button_clicked")
-    const COGNITO = {
-      REGION: 'us-west-2',
-      USER_POOL_ID: 'us-west-2_xRKVaj5ls',
-      CLIENT_ID: '5084o932i7age4c0tc9j2unmff',
-      IDENTITY_POOL_ID: 'us-west-2:6bc7ecdf-07db-4858-ae9b-fabb95a64b9d',
-      IDP_URL: 'cognito-idp.us-west-2.amazonaws.com',
-    }
 
     const COGNITO2 = {
       REGION: 'ap-northeast-2',
       USER_POOL_ID: 'ap-northeast-2_CHGQe7flY',
       CLIENT_ID: '29ilv9idglfh0spnbe9tpfb19m',
-      IDENTITY_POOL_ID: 'us-west-2:6bc7ecdf-07db-4858-ae9b-fabb95a64b9d',
-      IDP_URL: 'cognito-idp.us-west-2.amazonaws.com',
     }
 
+    const COGNITO = {
+      REGION: 'us-west-2',
+      USER_POOL_ID: 'us-west-2_xRKVaj5ls',
+      CLIENT_ID: '5084o932i7age4c0tc9j2unmff',
+    }
     Amplify.configure({
       Auth: {
         userPoolId : COGNITO.USER_POOL_ID,
         userPoolWebClientId : COGNITO.CLIENT_ID,
-        storage: sessionStorage,
-        region: COGNITO.REGION,
-        authenticationFlowType: 'CUSTOM_AUTH',
+        region: COGNITO.REGION
       }
     });
 
@@ -42,26 +35,29 @@ class KakaoLogin extends Component{
 
     Auth.signIn(email, password)
       .then(res=>console.log(res));
+  }
+
+  callServer(token) {
+
+    console.log("카카오 /v2/user/me를 콜해서 id를 받아옴");
 
   }
 
   componentDidMount(){
-
-    Kakao.init('e9c4b1d97b8bac697985d17eb59516b3');
+    Kakao.init('39c0f53356e324929bb78bd27b69bb6b');
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
-      success: function(authObj) {
-        alert(JSON.stringify(authObj));
-        const url = "https://kapi.kakao.com/v2/user/me";
-        axios.get(url, {headers: {'Access-Control-Allow-Origin': '*',
-            'Authorization': 'Bearer pVCHJggyYljOzsWC7VK2rPNIUYvDZYWWg_U65QopyNoAAAFqWLEHWQ'
-          }})
+      success: function (authObj) {
+
+        console.log(authObj)
+        const url = "http://localhost:3001/kakao";
+        axios.post(url, authObj)
           .then(res => console.log(res));
 
-        console.log(authObj);
-        console.log("카카오 /v2/user/me를 콜해서 id를 받아옴")
+
       },
       fail: function(err) {
+        console.log("---fail---");
         alert(JSON.stringify(err));
       }
     });
