@@ -44,7 +44,7 @@ class BibleFinder extends Component {
     axios.get(url)
       .then(response=>{
         console.log(response);
-        this.setState({"data":response.data})
+        this.setState({"data":response.data, "value":""})
       })
       .catch(error=>console.log(error))
   }
@@ -87,6 +87,7 @@ class BibleFinder extends Component {
 
         {this.state.showHint ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
         {this.state.showAnswer ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text}`}</p>:<p>보이기 버튼을 누르면 답이 보입니다.</p>}
+        <img src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />
       </div>
     )
 
