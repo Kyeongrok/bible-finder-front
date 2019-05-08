@@ -10,7 +10,6 @@ class KakaoLogin extends Component{
 
   handleClickLoginButton() {
     console.log("button_clicked")
-
     const COGNITO2 = {
       REGION: 'ap-northeast-2',
       USER_POOL_ID: 'ap-northeast-2_CHGQe7flY',
@@ -38,9 +37,7 @@ class KakaoLogin extends Component{
   }
 
   callServer(token) {
-
     console.log("카카오 /v2/user/me를 콜해서 id를 받아옴");
-
   }
 
   componentDidMount(){
