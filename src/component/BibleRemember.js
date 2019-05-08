@@ -10,6 +10,7 @@ class BibleFinder extends Component {
       showAnswer:false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClickCheckAnswer= this.handleClickCheckAnswer.bind(this);
   }
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -21,7 +22,13 @@ class BibleFinder extends Component {
     }else{
       this.setState({showAnswer: true});
     }
+  }
 
+  handleClickCheckAnswer() {
+    if (this.state.value == this.state.data.text) {
+      alert("맞았어요");
+    }else{
+    }
   }
   componentDidMount(){
     const url = "http://biblefinder.co.kr:5000/remember";
@@ -36,7 +43,7 @@ class BibleFinder extends Component {
     return(
       <div>
         문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
-        answer:<input type="text" value={this.state.value} onChange={this.handleChange} /><br/>
+        answer:<input type="text" value={this.state.value} onChange={this.handleChange} /><button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"감추기":"보이기"}</button><br/>
         {this.state.showAnswer ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text}`}</p>:<p>보이기 버튼을 누르면 답이 보입니다.</p>}
       </div>
