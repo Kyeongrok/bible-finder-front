@@ -38,7 +38,8 @@ class BibleFinder extends Component {
       })
     }
   }
-  componentDidMount(){
+  handleClickNextQuestion(){
+
     const url = "http://biblefinder.co.kr:5000/remember";
     axios.get(url)
       .then(response=>{
@@ -46,6 +47,9 @@ class BibleFinder extends Component {
         this.setState({"data":response.data})
       })
       .catch(error=>console.log(error))
+  }
+  componentDidMount(){
+    this.handleClickNextQuestion();
   }
   render(){
     return(
@@ -61,6 +65,8 @@ class BibleFinder extends Component {
         문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
         answer:<input type="text" style={{width:"400px"}} value={this.state.value} onChange={this.handleChange} /><button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"감추기":"보이기"}</button><br/>
+        <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button><br/>
+
         {this.state.showAnswer ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text}`}</p>:<p>보이기 버튼을 누르면 답이 보입니다.</p>}
       </div>
     )
