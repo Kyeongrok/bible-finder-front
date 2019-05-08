@@ -7,7 +7,9 @@ class BibleFinder extends Component {
     this.state = {
       data: {"index":"", "addr":""},
       value:"",
-      showAnswer:false
+      showAnswer:false,
+      passedAnswers: [],
+      wrongAnswers: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClickCheckAnswer= this.handleClickCheckAnswer.bind(this);
@@ -27,7 +29,13 @@ class BibleFinder extends Component {
   handleClickCheckAnswer() {
     if (this.state.value == this.state.data.text) {
       alert("맞았어요");
+      const passedAnswers = this.state.passedAnswers;
+      passedAnswers.push(this.state.data);
+      this.setState({passedAnswers:passedAnswers});
     }else{
+      this.setState({
+        wrongAnswers: this.state.wrongAnswers.concat(this.state.value)
+      })
     }
   }
   componentDidMount(){
@@ -42,6 +50,14 @@ class BibleFinder extends Component {
   render(){
     return(
       <div>
+        <div>
+          passed answers:<br/>
+          {this.state.passedAnswers.map(answer=><p>{answer.addr}</p>)}
+          <br/>
+          wrong answers:<br/>
+          {this.state.wrongAnswers.map(answer=><p key={answer}>{answer}</p>)}
+
+        </div>
         문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
         answer:<input type="text" value={this.state.value} onChange={this.handleChange} /><button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"감추기":"보이기"}</button><br/>
