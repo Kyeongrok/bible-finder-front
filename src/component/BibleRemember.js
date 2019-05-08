@@ -5,7 +5,7 @@ class BibleFinder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "",
+      data: {"index":"", "addr":""},
       value:"",
       showAnswer:false
     };
@@ -35,7 +35,7 @@ class BibleFinder extends Component {
   render(){
     return(
       <div>
-        문제:<p>{`${this.state.data.index} ${this.state.data.addr}`}</p>
+        문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
         answer:<input type="text" value={this.state.value} onChange={this.handleChange} /><br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"감추기":"보이기"}</button><br/>
         {this.state.showAnswer ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text}`}</p>:<p>보이기 버튼을 누르면 답이 보입니다.</p>}
