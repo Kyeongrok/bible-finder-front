@@ -52,14 +52,14 @@ class BibleFinder extends Component {
       <div>
         <div>
           passed answers:<br/>
-          {this.state.passedAnswers.map(answer=><p>{answer.addr}</p>)}
+          {this.state.passedAnswers.map(answer=><p key={Math.random()}>{answer.addr}</p>)}
           <br/>
           wrong answers:<br/>
           {this.state.wrongAnswers.map(answer=><p key={answer}>{answer}</p>)}
 
         </div>
         문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
-        answer:<input type="text" value={this.state.value} onChange={this.handleChange} /><button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
+        answer:<input type="text" style={{width:"400px"}} value={this.state.value} onChange={this.handleChange} /><button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"감추기":"보이기"}</button><br/>
         {this.state.showAnswer ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text}`}</p>:<p>보이기 버튼을 누르면 답이 보입니다.</p>}
       </div>
