@@ -33,6 +33,7 @@ class BibleFinder extends Component {
       const passedAnswers = this.state.passedAnswers;
       passedAnswers.push(this.state.data);
       this.setState({passedAnswers:passedAnswers});
+      this.handleClickNextQuestion();
     }else{
       this.setState({
         wrongAnswers: this.state.wrongAnswers.concat(this.state.value)
