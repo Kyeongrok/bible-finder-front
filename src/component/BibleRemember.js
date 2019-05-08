@@ -73,7 +73,7 @@ class BibleFinder extends Component {
         문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
         <br/>
         answer:<br/>
-        <textarea value={this.state.value} onChange={this.handleChange} style={{width:"400px"}}></textarea>
+        <textarea value={this.state.value} onChange={this.handleChange} style={{width:"400px", height:"100px"}}></textarea>
         <br/>
         <button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <br/>
