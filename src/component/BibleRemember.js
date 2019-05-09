@@ -95,8 +95,7 @@ class BibleFinder extends Component {
           <br/>
           wrong answers:<br/>
           {this.state.wrongAnswers.map(answer=><p key={answer}>{answer}</p>)}
-          <br/>
-
+          <br/><br/>
         </div>
         문제{`${this.state.data.index}: ${this.state.data.addr}`}<button onClick={()=>this.handleClickHint()}>{this.state.showHint?"힌트감추기":"힌트보이기"}</button><br/>
         {this.state.showHint ? <p>{`${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
