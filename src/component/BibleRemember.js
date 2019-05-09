@@ -16,6 +16,17 @@ class BibleFinder extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClickCheckAnswer= this.handleClickCheckAnswer.bind(this);
   }
+  init(){
+    this.setState({
+      data: {"index":"", "addr":""},
+      value:"",
+      showAnswer:false,
+      showHint:false,
+      showKakao:false,
+      passedAnswers: [],
+      wrongAnswers: []
+    });
+  }
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -35,6 +46,7 @@ class BibleFinder extends Component {
       passedAnswers.push(this.state.data);
       this.setState({passedAnswers:passedAnswers});
       this.handleClickNextQuestion();
+      this.init();
     }else{
       this.setState({
         wrongAnswers: this.state.wrongAnswers.concat(this.state.value)
@@ -68,6 +80,7 @@ class BibleFinder extends Component {
     }
   }
   componentDidMount(){
+    this.init();
     this.handleClickNextQuestion();
   }
   handleClickRefresh(){
@@ -82,25 +95,23 @@ class BibleFinder extends Component {
           <br/>
           wrong answers:<br/>
           {this.state.wrongAnswers.map(answer=><p key={answer}>{answer}</p>)}
+          <br/>
 
         </div>
-        문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
-        <br/>
+        문제{`${this.state.data.index}: ${this.state.data.addr}`}<button onClick={()=>this.handleClickHint()}>{this.state.showHint?"힌트감추기":"힌트보이기"}</button><br/>
+        {this.state.showHint ? <p>{`${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
         answer:<br/>
-        <textarea value={this.state.value} onChange={this.handleChange} style={{width:"95%", height:"100px"}}></textarea>
+        <textarea value={this.state.value} onChange={this.handleChange} style={{width:"300px", height:"100px"}}></textarea>
         <br/>
         <button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <br/>
-        <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"답감추기":"답보이기"}</button><br/>
+        <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"답감추기":"답보이기"}</button>
+        {this.state.showAnswer ?
+          <div>{`${this.state.data.addr} ${this.state.data.text}`}</div>
+          :<div>답보이기 버튼을 누르면 답이 보입니다.</div>}
         <br/>
-        <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button><button onClick={()=>this.handleClickRefresh()}>새로고침</button><br/>
+        <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button>
         <br/>
-        <button onClick={()=>this.handleClickHint()}>힌트</button><br/>
-
-        힌트:<br/>
-
-        {this.state.showHint ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
-        {this.state.showAnswer ? <p>{`${this.state.data.index} ${this.state.data.addr} ${this.state.data.text}`}</p>:<p>보이기 버튼을 누르면 답이 보입니다.</p>}
         {this.state.showKakao ?<img src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
         <button onClick={()=>this.handleClickShowKakao()}>로그인보이기</button><br/>
       </div>
