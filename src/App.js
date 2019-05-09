@@ -29,7 +29,7 @@ function App() {
             <li><Link to="/separate_sit/">자리배치</Link></li>
           </ul>
         </nav>
-        <Route path="/" exact component={KakaoLogin} />
+        <Route path="/" exact component={BibleRemember} />
         <Route path="/login/" component={KakaoLogin} />
         <Route path="/finder/" component={BibleFinder} />
         <Route path="/remember/" component={BibleRemember} />
