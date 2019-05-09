@@ -48,7 +48,8 @@ class BibleFinder extends Component {
       this.init();
     }else{
       this.setState({
-        wrongAnswers: this.state.wrongAnswers.concat(this.state.value)
+        wrongAnswers: this.state.wrongAnswers.concat(this.state.value),
+        value:""
       })
     }
   }
