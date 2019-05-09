@@ -50,7 +50,10 @@ class KakaoLogin extends Component{
         console.log(authObj)
         const url = "http://localhost:3001/kakao";
         axios.post(url, authObj)
-          .then(res => console.log(res));
+          .then(res => {
+            console.log("----------eeeee--------");
+            console.log(res);
+          });
       },
       fail: function(err) {
         console.log("---fail---");
