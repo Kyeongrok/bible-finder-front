@@ -70,6 +70,9 @@ class BibleFinder extends Component {
   componentDidMount(){
     this.handleClickNextQuestion();
   }
+  handleClickRefresh(){
+
+  }
   render(){
     return(
       <div>
@@ -84,13 +87,13 @@ class BibleFinder extends Component {
         문제:{`${this.state.data.index} ${this.state.data.addr}`}<br/>
         <br/>
         answer:<br/>
-        <textarea value={this.state.value} onChange={this.handleChange} style={{width:"400px", height:"100px"}}></textarea>
+        <textarea value={this.state.value} onChange={this.handleChange} style={{width:"300px", height:"100px"}}></textarea>
         <br/>
         <button onClick={()=>this.handleClickCheckAnswer()}>맞는지?</button><br/>
         <br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"답감추기":"답보이기"}</button><br/>
         <br/>
-        <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button><br/>
+        <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button><button onClick={()=>this.handleClickRefresh()}>새로고침</button><br/>
         <br/>
         <button onClick={()=>this.handleClickHint()}>힌트</button><br/>
 
