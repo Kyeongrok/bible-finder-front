@@ -43,7 +43,7 @@ class App extends Component {
     <Router>
       <div>
         <button onMouseEnter={()=>this.handleClickMenu()} onClick={()=>this.handleClickMenu()}>menu</button>
-        {this.state.showNav ?<Nav/>:<p></p>}
+        {this.state.showNav ?<Nav/>:""}
         <Route path="/" exact component={BibleRemember}/>
         <Route path="/login/" component={KakaoLogin}/>
         <Route path="/finder/" component={BibleFinder}/>

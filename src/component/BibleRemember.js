@@ -23,7 +23,6 @@ class BibleFinder extends Component {
       showAnswer:false,
       showHint:false,
       showKakao:false,
-      passedAnswers: [],
       wrongAnswers: []
     });
   }
@@ -72,7 +71,6 @@ class BibleFinder extends Component {
   }
 
   handleClickShowKakao() {
-
     if(this.state.showKakao){
       this.setState({showKakao: false});
     }else{
