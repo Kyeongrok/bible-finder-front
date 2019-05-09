@@ -41,17 +41,16 @@ class KakaoLogin extends Component{
   }
 
   componentDidMount(){
-    Kakao.init('39c0f53356e324929bb78bd27b69bb6b');
+    if (Kakao.Auth == null) {
+      Kakao.init('39c0f53356e324929bb78bd27b69bb6b');
+    }
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: function (authObj) {
-
         console.log(authObj)
         const url = "http://localhost:3001/kakao";
         axios.post(url, authObj)
           .then(res => console.log(res));
-
-
       },
       fail: function(err) {
         console.log("---fail---");
