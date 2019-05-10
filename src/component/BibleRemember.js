@@ -105,7 +105,7 @@ class BibleFinder extends Component {
         <br/>
         <button onClick={()=>this.handleClickShowButton()}>{this.state.showAnswer?"답감추기":"답보이기"}</button>
         {this.state.showAnswer ?
-          <div>{`${this.state.data.addr} ${this.state.data.text}`}</div>
+          <div>{`${this.state.data.text}`}</div>
           :<div>답보이기 버튼을 누르면 답이 보입니다.</div>}
         <br/>
         <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button>

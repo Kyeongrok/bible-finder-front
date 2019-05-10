@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import KakaoLogin from './component/KakaoLogin';
+import KakaoLoginMaking from './component/KakaoLoginMaking';
 import BibleFinder from './component/BibleFinder';
 import BibleRemember from './component/BibleRemember';
 import Signup from './component/Signup';
@@ -23,7 +23,6 @@ const Nav = ()=>{
 }
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +37,9 @@ class App extends Component {
     }
 
   }
+  success(response){
+    console.log(response);
+  };
   render(){
     return (
     <Router>
@@ -45,18 +47,15 @@ class App extends Component {
         <button onMouseEnter={()=>this.handleClickMenu()} onClick={()=>this.handleClickMenu()}>menu</button>
         {this.state.showNav ?<Nav/>:""}
         <Route path="/" exact component={BibleRemember}/>
-        <Route path="/login/" component={KakaoLogin}/>
+        <Route path="/login/" component={KakaoLoginMaking}/>
         <Route path="/finder/" component={BibleFinder}/>
         <Route path="/remember/" component={BibleRemember}/>
         <Route path="/signup/" component={Signup}/>
         <Route path="/separate_sit/" component={SeparateSit}/>
       </div>
     </Router>
-
     );
   }
-
-
 }
 
 export default App;
