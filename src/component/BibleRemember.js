@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Select from 'react-select'
 import axios from 'axios';
 
 class BibleFinder extends Component {
@@ -11,10 +12,12 @@ class BibleFinder extends Component {
       showHint:false,
       showKakao:false,
       passedAnswers: [],
+      week:1,
       wrongAnswers: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClickCheckAnswer= this.handleClickCheckAnswer.bind(this);
+    this.handleChangeSelect = this.handleChangeSelect.bind(this);
   }
   init(){
     this.setState({
@@ -85,10 +88,41 @@ class BibleFinder extends Component {
   handleClickRefresh(){
 
   }
+
+  handleChangeSelect(event) {
+
+    this.setState({week: event.value});
+
+    console.log(event.value);
+  }
   render(){
+    const options = [
+      { value: 1, label: "1주차" },
+      { value: 2, label: "2주차" },
+      { value: 3, label: "3주차" },
+      { value: 4, label: "4주차" },
+      { value: 5, label: "5주차" },
+      { value: 6, label: "6주차" },
+      { value: 7, label: "7주차" },
+      { value: 8, label: "8주차" },
+      { value: 9, label: "9주차" },
+      { value: 10, label: "10주차" },
+      { value: 11, label: "11주차" },
+      { value: 12, label: "12주차" },
+      { value: 13, label: "13주차" },
+      { value: 14, label: "14주차" },
+      { value: 15, label: "15주차" },
+      { value: 16, label: "16주차" },
+      { value: 17, label: "17주차" },
+      { value: 18, label: "18주차" },
+    ]
+    console.log(this.state);
     return(
       <div>
         <div>
+          <Select options={options}
+                  defaultValue={{ label: "1주차", value: 1 }}
+                  onChange={this.handleChangeSelect}/>
           passed answers:<br/>
           {this.state.passedAnswers.map(answer=><p key={Math.random()}>{answer.addr}</p>)}
           <br/>

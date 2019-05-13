@@ -64,8 +64,19 @@ class KakaoLoginMaking extends Component{
             const email = kakaoAccount.email;
             Auth.signIn(email)
               .then(res=>{
+                console.log("challengeName:", res.challengeName);
                 console.log(res);
-                console.log("-------------");
+                if (res.challengeName === 'CUSTOM_CHALLENGE') {
+                  // to send the answer of the custom challenge
+                  let challengeResponse = "89070989";
+                  Auth.sendCustomChallengeAnswer(res, challengeResponse)
+                    .then(user =>{
+                      console.log(user);
+                    })
+                    .catch(err => console.log(err));
+                } else {
+                  console.log(res);
+                }
               });
           });
       },
