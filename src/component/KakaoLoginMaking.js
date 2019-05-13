@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
+import { InputGroup, FormControl, Form, Button, Card } from 'react-bootstrap';
 
 const nello = (response) =>{
   console.log(response);
@@ -12,7 +13,8 @@ const nello = (response) =>{
 class KakaoLoginMaking extends Component{
   constructor(props) {
     super(props);
-    this.state = {"kakao":null, kakaoMe:null}
+    this.state = {"kakao":null, kakaoMe:null,
+      accessToken:"", idToken:""}
   }
 
   handleClickLoginButton() {
@@ -35,10 +37,10 @@ class KakaoLoginMaking extends Component{
         console.log("res:", response);
         const url = "http://localhost:3001/kakao";
         axios.post(url, response)
-          .then(res => {
+          .then(resV2UserMe => {
             // this.setState({kakaoMe: res})
-            console.log(res);
-            const data = res.data;
+            console.log(resV2UserMe);
+            const data = resV2UserMe.data;
             const kakaoAccount = data.kakao_account;
             // 여기서 회원가입으로 이동
             // cognito연동
@@ -61,23 +63,34 @@ class KakaoLoginMaking extends Component{
               }
             });
 
-            const email = kakaoAccount.email;
+            let email = kakaoAccount.email;
+            email = "oceanfog2@gmail.com";
+
             Auth.signIn(email)
               .then(res=>{
                 console.log("challengeName:", res.challengeName);
-                console.log(res);
                 if (res.challengeName === 'CUSTOM_CHALLENGE') {
                   // to send the answer of the custom challenge
-                  let challengeResponse = "89070989";
+                  let challengeResponse = data.id.toString();
                   Auth.sendCustomChallengeAnswer(res, challengeResponse)
                     .then(user =>{
-                      console.log(user);
+                      console.log("success:", user);
+                      const session = user.getSignInUserSession();
+                      this.setState({idToken: session.getIdToken().getJwtToken(),
+                      accessToken:session.getAccessToken().getJwtToken()});
+
+
                     })
                     .catch(err => console.log(err));
                 } else {
                   console.log(res);
                 }
-              });
+              })
+              .catch(err=>{
+                alert(err.message)
+                console.log("err:", err)
+              })
+            ;
           });
       },
       fail: function(err) {
@@ -89,11 +102,38 @@ class KakaoLoginMaking extends Component{
     console.log(this.state.kakaoMe);
     return (
       <div>
-        id:<input type="text"/><br/>
-        pw:<input type="text"/><br/>
-        <button onClick={()=>this.handleClickLoginButton()}>한빗코 로그인</button><br/>
+        <InputGroup size="sm" className="mb-3" style={{ width: '18rem' }}>
+          <InputGroup.Prepend>
+            <InputGroup.Text id="inputGroup-sizing-sm">Id</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+        </InputGroup>
 
-        <img onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
+        <InputGroup size="sm" className="mb-3" style={{ width: '18rem' }}>
+          <InputGroup.Prepend>
+            <InputGroup.Text id="inputGroup-sizing-sm">Password</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+        </InputGroup>
+        <Button onClick={()=>this.handleClickLoginButton()}>한빗코 로그인</Button><br/>
+
+        <img onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
+        <Card>
+          <Card.Body>
+            <Card.Title>IdToken</Card.Title>
+            <Card.Text>
+              {this.state.idToken.toString()}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Body>
+            <Card.Title>accessToken</Card.Title>
+            <Card.Text>
+              {this.state.accessToken.toString()}
+            </Card.Text>
+          </Card.Body>
+        </Card>
       </div>
     );
   }
