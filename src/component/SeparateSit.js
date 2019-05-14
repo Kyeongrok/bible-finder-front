@@ -46,10 +46,6 @@ const Ttable=seats=> {
 }
 
 class SeparateSit extends Component{
-  constructor(props) {
-    super(props);
-  }
-
   render(){
     return (
       <div>

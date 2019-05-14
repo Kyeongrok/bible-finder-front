@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
-import { InputGroup, FormControl, Form, Button, Card } from 'react-bootstrap';
-
-const nello = (response) =>{
-  console.log(response);
-
-  console.log("------nello-----");
-}
+import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
 
 class KakaoLoginMaking extends Component{
   constructor(props) {
@@ -26,11 +20,35 @@ class KakaoLoginMaking extends Component{
     }
     this.setState({"kakao": Kakao})
   }
+  processLoginWithKakaoMe(data) {
+    let email = data.kakao_account.email;
+    email = "oceanfog2@gmail.com";
 
-  handleClickMove() {
-    console.log("ssssss");
+    Auth.signIn(email)
+      .then(res => {
+        console.log("challengeName:", res.challengeName);
+        if (res.challengeName === 'CUSTOM_CHALLENGE') {
+          // to send the answer of the custom challenge
+          let challengeResponse = data.id.toString();
+          Auth.sendCustomChallengeAnswer(res, challengeResponse)
+            .then(user => {
+              console.log("success:", user);
+              const session = user.getSignInUserSession();
+              this.setState({
+                idToken: session.getIdToken().getJwtToken(),
+                accessToken: session.getAccessToken().getJwtToken()
+              });
+            })
+            .catch(err => console.log(err));
+        } else {
+          console.log(res);
+        }
+      })
+      .catch(err => {
+        alert(err.message)
+        console.log("err:", err)
+      });
   }
-
   handleClickKakaoLogin() {
     this.state.kakao.Auth.login({
       success: (response) => {
@@ -41,7 +59,6 @@ class KakaoLoginMaking extends Component{
             // this.setState({kakaoMe: res})
             console.log(resV2UserMe);
             const data = resV2UserMe.data;
-            const kakaoAccount = data.kakao_account;
             // 여기서 회원가입으로 이동
             // cognito연동
             const COGNITO2 = {
@@ -63,34 +80,9 @@ class KakaoLoginMaking extends Component{
               }
             });
 
-            let email = kakaoAccount.email;
-            email = "oceanfog2@gmail.com";
+            // coginto login
+            this.processLoginWithKakaoMe(data);
 
-            Auth.signIn(email)
-              .then(res=>{
-                console.log("challengeName:", res.challengeName);
-                if (res.challengeName === 'CUSTOM_CHALLENGE') {
-                  // to send the answer of the custom challenge
-                  let challengeResponse = data.id.toString();
-                  Auth.sendCustomChallengeAnswer(res, challengeResponse)
-                    .then(user =>{
-                      console.log("success:", user);
-                      const session = user.getSignInUserSession();
-                      this.setState({idToken: session.getIdToken().getJwtToken(),
-                      accessToken:session.getAccessToken().getJwtToken()});
-
-
-                    })
-                    .catch(err => console.log(err));
-                } else {
-                  console.log(res);
-                }
-              })
-              .catch(err=>{
-                alert(err.message)
-                console.log("err:", err)
-              })
-            ;
           });
       },
       fail: function(err) {
@@ -117,7 +109,7 @@ class KakaoLoginMaking extends Component{
         </InputGroup>
         <Button onClick={()=>this.handleClickLoginButton()}>한빗코 로그인</Button><br/>
 
-        <img onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
+        <img alt={"aaaa"} onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
         <Card>
           <Card.Body>
             <Card.Title>IdToken</Card.Title>

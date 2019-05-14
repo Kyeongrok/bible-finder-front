@@ -42,7 +42,7 @@ class BibleFinder extends Component {
   }
 
   handleClickCheckAnswer() {
-    if (this.state.value == this.state.data.text) {
+    if (this.state.value === this.state.data.text) {
       alert("맞았어요");
       const passedAnswers = this.state.passedAnswers;
       passedAnswers.push(this.state.data);
@@ -144,7 +144,7 @@ class BibleFinder extends Component {
         <br/>
         <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button>
         <br/>
-        {this.state.showKakao ?<img src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
+        {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
         <button onClick={()=>this.handleClickShowKakao()}>로그인보이기</button><br/>
       </div>
     )

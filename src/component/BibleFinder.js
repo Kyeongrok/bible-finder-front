@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Kakao from 'kakaojs';
-import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
 
 class BibleFinder extends Component {

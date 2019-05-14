@@ -26,7 +26,6 @@ class Signup extends Component {
             // this.setState({kakaoMe: res})
             console.log(res);
             const data = res.data;
-            const kakaoAccount = data.kakao_account;
             // 여기서 회원가입으로 이동
             // cognito연동
             let COGNITO;
@@ -67,7 +66,7 @@ class Signup extends Component {
             })
             .catch(err => {
               console.log("err", err)
-              if (err.code == "UsernameExistsException") {
+              if (err.code === "UsernameExistsException") {
                 alert("사용자가 이미 존재 합니다.");
               }
             });
