@@ -20,7 +20,7 @@ class Signup extends Component {
       success: (response) => {
         console.log("res:", response);
         this.setState({"kakaoToken": response});
-        const url = "http://localhost:3001/kakao";
+        const url = "http://biblefinder.co.kr:3001/kakao";
         axios.post(url, response)
           .then(res => {
             // this.setState({kakaoMe: res})
