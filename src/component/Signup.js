@@ -20,7 +20,8 @@ class Signup extends Component {
       success: (response) => {
         console.log("res:", response);
         this.setState({"kakaoToken": response});
-        const url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
+        let url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
+        url = "https://api.hanbitco-qa.com/v1/kakao/login/";
         console.log("[kakao_url]", url);
         axios.post(url, response)
           .then(res => {
