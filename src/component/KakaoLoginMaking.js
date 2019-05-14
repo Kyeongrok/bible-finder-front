@@ -53,7 +53,7 @@ class KakaoLoginMaking extends Component{
     this.state.kakao.Auth.login({
       success: (response) => {
         console.log("res:", response);
-        const url = "http://biblefinder.co.kr:3001/kakao";
+        const url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
         axios.post(url, response)
           .then(resV2UserMe => {
             // this.setState({kakaoMe: res})
