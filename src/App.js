@@ -13,10 +13,10 @@ const Nav = ()=>{
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/login/">KakaoLogin</Link></li>
-        <li><Link to="/finder/">Finder</Link></li>
-        <li><Link to="/remember/">Remember</Link></li>
+        {/*<li><Link to="/finder/">Finder</Link></li>*/}
+        {/*<li><Link to="/remember/">Remember</Link></li>*/}
         <li><Link to="/signup/">회원가입(signup)</Link></li>
-        <li><Link to="/separate_sit/">자리배치</Link></li>
+        {/*<li><Link to="/separate_sit/">자리배치</Link></li>*/}
       </ul>
     </nav>
   )
