@@ -56,7 +56,7 @@ class App extends Component {
         <Route path="/remember/" component={BibleRemember}/>
         <Route path="/signup/" component={Signup}/>
         <Route path="/separate_sit/" component={SeparateSit}/>
-        <Route path="/oauth/:code" component={KakaoTokenGetter}/>
+        <Route path="/oauth/" component={KakaoTokenGetter}/>
       </div>
     </Router>
     );

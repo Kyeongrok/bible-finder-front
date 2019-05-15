@@ -13,7 +13,8 @@ class TokenGetter extends Component {
       kakaoMe: null,
       accessToken: "",
       kakaoToken:{},
-      idToken: ""
+      idToken: "",
+      cnf:{}
     }
   }
 
@@ -36,7 +37,7 @@ class TokenGetter extends Component {
       // Kakao.Auth.login
 
     }
-    this.setState({"kakao": Kakao})
+    this.setState({"kakao": Kakao, cnf: cnf})
   }
   handleClickKakaoLogin() {
     console.log("[click_login]");
@@ -55,15 +56,21 @@ class TokenGetter extends Component {
 
   render() {
 
+    console.log("cnf:", this.state.cnf);
     console.log(this.state.kakaoToken);
     console.log("props:", this.props.match.params);
     console.log(this.props.location.search)
+    let redirUrl = "hanbitco-qa.firebaseapp.com";
+    // redirUrl = "localhost%3A3000";
+    let hrefUrl = "https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fclient_id%3D"
+      +this.state.cnf.javaScriptKey+"%26redirect_uri%3Dhttps%3A%2F%2F"+redirUrl+"%2Foauth%26response_type%3Dcode";
+    console.log("hrefUrl:", hrefUrl);
     return(
       <div>
         <Button onClick={()=>this.handleClickKakaoLogin()}>토큰받기(두번누르세요)</Button><br/>
         {JSON.stringify(this.state.kakaoToken)}
         <a
-          href="https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fclient_id%3D6e19bc158e7ddb45c3f2d1877ba79da8%26redirect_uri%3Dhttps%3A%2F%2Fhanbitco-qa.firebaseapp.com%2Foauth%26response_type%3Dcode"
+          href={hrefUrl}
           className="btnKakao" title="카카오계정으로 로그인"><i>TALK</i>카카오계정으로 로그인</a>
       </div>
     )
