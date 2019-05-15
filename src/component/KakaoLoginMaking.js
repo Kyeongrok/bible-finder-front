@@ -78,16 +78,8 @@ class KakaoLoginMaking extends Component{
             // this.setState({kakaoMe: res})
             console.log(resV2UserMe);
             const data = resV2UserMe.data;
-            // 여기서 회원가입으로 이동
             // cognito연동
-
-            let COGNITO = {
-              REGION: 'us-west-2',
-              USER_POOL_ID: 'us-west-2_xRKVaj5ls',
-              CLIENT_ID: '5084o932i7age4c0tc9j2unmff',
-            }
-
-            COGNITO = this.state.cognitoInfo;
+            const COGNITO = this.state.cognitoInfo;
             console.log("[cognitoInfo]",COGNITO);
 
             Amplify.configure({

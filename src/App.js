@@ -6,12 +6,14 @@ import BibleRemember from './component/BibleRemember';
 import Signup from './component/Signup';
 import SeparateSit from './component/SeparateSit';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import KakaoTokenGetter from './component/KakaoTokenGetter';
 
 const Nav = ()=>{
   return(
     <nav>
       <ul>
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/token">KakaoTokenGetter</Link></li>
         <li><Link to="/login/">KakaoLogin</Link></li>
         {/*<li><Link to="/finder/">Finder</Link></li>*/}
         {/*<li><Link to="/remember/">Remember</Link></li>*/}
@@ -48,6 +50,7 @@ class App extends Component {
         {this.state.showNav ?<Nav/>:""}
         <Route path="/" exact component={Signup}/>
         <Route path="/login/" component={KakaoLoginMaking}/>
+        <Route path="/token/" component={KakaoTokenGetter}/>
         <Route path="/finder/" component={BibleFinder}/>
         <Route path="/remember/" component={BibleRemember}/>
         <Route path="/signup/" component={Signup}/>
