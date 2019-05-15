@@ -1,7 +1,7 @@
 
 const config = {
   local: {
-    "javaScriptKey":"39c0f53356e324929bb78bd27b69bb6b",
+    "javaScriptKey":"4dff7e0a4440d257e3ba040554b8d418",
     "cognitoInfo":{
       REGION: 'ap-northeast-2',
       USER_POOL_ID: 'ap-northeast-2_CHGQe7flY',

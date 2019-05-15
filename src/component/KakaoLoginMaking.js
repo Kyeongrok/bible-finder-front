@@ -35,7 +35,8 @@ class KakaoLoginMaking extends Component{
     this.setState({"kakao": Kakao, cognitoInfo:cnf.cognitoInfo})
   }
   processLoginWithKakaoMe(data) {
-    let email = data.kakao_account.email;
+    console.log(data);
+    let email = data.data.kakao_account.email;
     // email = "oceanfog2@gmail.com";
 
     Auth.signIn(email)

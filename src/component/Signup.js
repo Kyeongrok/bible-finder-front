@@ -3,6 +3,7 @@ import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
 import { Button, Alert } from 'react-bootstrap';
+import config from '../configuration/config';
 
 class Signup extends Component {
   constructor(props) {
@@ -10,9 +11,20 @@ class Signup extends Component {
     this.state = {"kakaoToken":{}, kakaoMe:null}
   }
   componentDidMount(){
+
+    const hostname = window && window.location && window.location.hostname;
+    let cnf = config.get('local');
+    console.log("cnf:", cnf);
     if (Kakao.Auth == null) {
-      Kakao.init('39c0f53356e324929bb78bd27b69bb6b');
+      if (hostname === "localhost") {
+        cnf = config.get('local');
+      }else if (hostname === "hanbitco-qa.firebaseapp.com") {
+        cnf = config.get('qa');
+      }
+      console.log("hostname:", hostname, cnf);
+      Kakao.init(cnf.javaScriptKey);
     }
+
     this.setState({"kakao": Kakao})
   }
   handleClickKakaoLogin() {
