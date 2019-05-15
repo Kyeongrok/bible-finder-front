@@ -18,6 +18,7 @@ const Nav = ()=>{
         {/*<li><Link to="/finder/">Finder</Link></li>*/}
         {/*<li><Link to="/remember/">Remember</Link></li>*/}
         <li><Link to="/signup/">회원가입(signup)</Link></li>
+        <li><Link to="/oauth/">oauth</Link></li>
         {/*<li><Link to="/separate_sit/">자리배치</Link></li>*/}
       </ul>
     </nav>
@@ -55,6 +56,7 @@ class App extends Component {
         <Route path="/remember/" component={BibleRemember}/>
         <Route path="/signup/" component={Signup}/>
         <Route path="/separate_sit/" component={SeparateSit}/>
+        <Route path="/oauth/:code" component={KakaoTokenGetter}/>
       </div>
     </Router>
     );
