@@ -3,12 +3,17 @@ import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
 import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
+import config from '../configuration/config';
 
 class KakaoLoginMaking extends Component{
   constructor(props) {
     super(props);
-    this.state = {"kakao":null, kakaoMe:null,
-      accessToken:"", idToken:""}
+    this.state = {
+      "kakao":null,
+      kakaoMe:null,
+      accessToken:"",
+      idToken:""
+    }
   }
 
   handleClickLoginButton() {
@@ -16,15 +21,22 @@ class KakaoLoginMaking extends Component{
 
   componentDidMount(){
     const hostname = window && window.location && window.location.hostname;
-    console.log("hostname:", hostname);
+    let cnf = config.get('local');
+    console.log("cnf:", cnf);
     if (Kakao.Auth == null) {
-      Kakao.init('39c0f53356e324929bb78bd27b69bb6b');
+      if (hostname === "localhost") {
+        cnf = config.get('local');
+      }else if (hostname === "hanbitco-qa.firebaseapp.com") {
+        cnf = config.get('qa');
+      }
+      console.log("hostname:", hostname, cnf);
+      Kakao.init(cnf.javaScriptKey);
     }
-    this.setState({"kakao": Kakao})
+    this.setState({"kakao": Kakao, cognitoInfo:cnf.cognitoInfo})
   }
   processLoginWithKakaoMe(data) {
     let email = data.kakao_account.email;
-    email = "oceanfog2@gmail.com";
+    // email = "oceanfog2@gmail.com";
 
     Auth.signIn(email)
       .then(res => {
@@ -52,11 +64,14 @@ class KakaoLoginMaking extends Component{
       });
   }
   handleClickKakaoLogin() {
+    console.log("[click_login]");
     this.state.kakao.Auth.login({
       success: (response) => {
         console.log("res:", response);
         let url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
         url = "https://api.hanbitco-qa.com/v1/kakao/login/";
+
+        console.log(url);
         axios.post(url, response)
           .then(resV2UserMe => {
             // this.setState({kakaoMe: res})
@@ -64,17 +79,16 @@ class KakaoLoginMaking extends Component{
             const data = resV2UserMe.data;
             // 여기서 회원가입으로 이동
             // cognito연동
-            const COGNITO2 = {
-              REGION: 'ap-northeast-2',
-              USER_POOL_ID: 'ap-northeast-2_CHGQe7flY',
-              CLIENT_ID: '29ilv9idglfh0spnbe9tpfb19m',
-            }
 
-            const COGNITO = {
+            let COGNITO = {
               REGION: 'us-west-2',
               USER_POOL_ID: 'us-west-2_xRKVaj5ls',
               CLIENT_ID: '5084o932i7age4c0tc9j2unmff',
             }
+
+            COGNITO = this.state.cognitoInfo;
+            console.log("[cognitoInfo]",COGNITO);
+
             Amplify.configure({
               Auth: {
                 userPoolId : COGNITO.USER_POOL_ID,
@@ -88,7 +102,7 @@ class KakaoLoginMaking extends Component{
 
           });
       },
-      fail: function(err) {
+      fail:err=>{
         alert(JSON.stringify(err));
       }
     });
