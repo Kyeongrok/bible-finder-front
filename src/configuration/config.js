@@ -11,7 +11,7 @@ const config = {
   dev: {
   },
   qa: {
-    "javaScriptKey":"e9c4b1d97b8bac697985d17eb59516b3",
+    "javaScriptKey":"6e19bc158e7ddb45c3f2d1877ba79da8",
     "cognitoInfo":{
       REGION: 'ap-northeast-2',
       USER_POOL_ID: 'ap-northeast-2_VEcauCPn5',
