@@ -15,6 +15,8 @@ class KakaoLoginMaking extends Component{
   }
 
   componentDidMount(){
+    const hostname = window && window.location && window.location.hostname;
+    console.log("hostname:", hostname);
     if (Kakao.Auth == null) {
       Kakao.init('39c0f53356e324929bb78bd27b69bb6b');
     }
@@ -53,7 +55,8 @@ class KakaoLoginMaking extends Component{
     this.state.kakao.Auth.login({
       success: (response) => {
         console.log("res:", response);
-        const url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
+        let url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
+        url = "https://api.hanbitco-qa.com/v1/kakao/login/";
         axios.post(url, response)
           .then(resV2UserMe => {
             // this.setState({kakaoMe: res})
