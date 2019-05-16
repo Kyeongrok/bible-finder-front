@@ -25,7 +25,7 @@ class Signup extends Component {
       Kakao.init(cnf.javaScriptKey);
     }
 
-    this.setState({"kakao": Kakao})
+    this.setState({"kakao": Kakao, cognitoInfo:cnf.cognitoInfo})
   }
   handleClickKakaoLogin() {
     this.state.kakao.Auth.login({
@@ -43,8 +43,7 @@ class Signup extends Component {
             // 여기서 회원가입으로 이동
             // cognito연동
             let COGNITO;
-            COGNITO = {REGION: 'ap-northeast-2', USER_POOL_ID: 'ap-northeast-2_CHGQe7flY', CLIENT_ID: '29ilv9idglfh0spnbe9tpfb19m',}
-            COGNITO = {REGION: 'us-west-2', USER_POOL_ID: 'us-west-2_xRKVaj5ls', CLIENT_ID: '5084o932i7age4c0tc9j2unmff',}
+            COGNITO = this.state.cognitoInfo;
 
             Amplify.configure({
               Auth: {
