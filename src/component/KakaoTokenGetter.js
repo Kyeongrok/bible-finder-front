@@ -60,10 +60,11 @@ class TokenGetter extends Component {
     console.log(this.state.kakaoToken);
     console.log("props:", this.props.match.params);
     console.log(this.props.location.search)
-    let redirUrl = "hanbitco-qa.firebaseapp.com";
-    // redirUrl = "localhost%3A3000";
+    let redirUrl = "&redirect_uri=https://hanbitco-qa.firebaseapp.com&response_type=code";
+    redirUrl = "&redirect_uri=http://localhost%3A3000&response_type=code";
+    // redirUrl = "&redirect_uri=kakaojs&response_type=code";
     let hrefUrl = "https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fclient_id%3D"
-      +this.state.cnf.javaScriptKey+"%26redirect_uri%3Dhttps%3A%2F%2F"+redirUrl+"%2Foauth%26response_type%3Dcode";
+      +this.state.cnf.restApiKey+encodeURIComponent(redirUrl);
     console.log("hrefUrl:", hrefUrl);
     return(
       <div>
@@ -71,7 +72,8 @@ class TokenGetter extends Component {
         {JSON.stringify(this.state.kakaoToken)}
         <a
           href={hrefUrl}
-          className="btnKakao" title="카카오계정으로 로그인"><i>TALK</i>카카오계정으로 로그인</a>
+          className="btnKakao" title="카카오계정으로 로그인"><i>TALK</i>카카오계정으로 로그인</a><br/>
+        <a href={"http://localhost:3001/kakao/login/"} >rest api login시도</a>
       </div>
     )
   }

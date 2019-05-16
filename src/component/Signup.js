@@ -39,7 +39,7 @@ class Signup extends Component {
           .then(res => {
             // this.setState({kakaoMe: res})
             console.log(res);
-            const data = res.data;
+            const data = res.data.data;
             // 여기서 회원가입으로 이동
             // cognito연동
             let COGNITO;
