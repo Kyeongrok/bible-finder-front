@@ -123,10 +123,14 @@ class KakaoLoginMaking extends Component{
         </InputGroup>
         <Button onClick={()=>this.handleClickLoginButton()}>한빗코 로그인</Button><br/>
 
-        <a href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=http://localhost:3001/kakao/oauth&response_type=code"}>
+        <p>rest</p>
+        <a href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=kakaojs&response_type=code"}>
           <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
         </a>
-          <br/>
+
+        <p>kakaojs</p>
+        <img alt={"aaaa"} onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
+         <br/>
         <Card>
           <Card.Body>
             <Card.Title>IdToken</Card.Title>
