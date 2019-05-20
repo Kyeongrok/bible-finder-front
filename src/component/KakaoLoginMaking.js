@@ -39,6 +39,10 @@ class KakaoLoginMaking extends Component{
     let email = data.data.kakao_account.email;
     // email = "oceanfog2@gmail.com";
 
+    if (email === "oceanfog1@gmail.com") {
+      email = "oceanfog2@gmail.com";
+    }
+
     Auth.signIn(email)
       .then(res => {
         console.log("challengeName:", res.challengeName);
@@ -120,7 +124,7 @@ class KakaoLoginMaking extends Component{
         <Button onClick={()=>this.handleClickLoginButton()}>한빗코 로그인</Button><br/>
 
         <a href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=http://localhost:3001/kakao/oauth&response_type=code"}>
-          <img alt={"aaaa"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
+          <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
         </a>
           <br/>
         <Card>
