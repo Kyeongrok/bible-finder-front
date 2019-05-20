@@ -48,7 +48,7 @@ class KakaoLoginMaking extends Component{
         console.log("challengeName:", res.challengeName);
         if (res.challengeName === 'CUSTOM_CHALLENGE') {
           // to send the answer of the custom challenge
-          let challengeResponse = data.id.toString();
+          let challengeResponse = data.data.id;
           Auth.sendCustomChallengeAnswer(res, challengeResponse)
             .then(user => {
               console.log("success:", user);
