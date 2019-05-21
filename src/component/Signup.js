@@ -63,26 +63,28 @@ class Signup extends Component {
             const message = `${email}로 회원 가입 합니다. ${COGNITO.REGION}에서`;
             alert(message);
             // cognito call을 해서 cognito에 가입까지 되도록 한다.
-            Auth.signUp({
-              username,
-              password,
-              attributes: {
-                email,          // optional
-                // other custom attributes
-                'custom:kakaoId' : kakaoId
-              },
-              validationData: []  //optional
-            })
-            .then(data => {
-              console.log(data);
-              alert("회원가입이 완료 되었습니다.");
-            })
-            .catch(err => {
-              console.log("err", err)
-              if (err.code === "UsernameExistsException") {
-                alert("사용자가 이미 존재 합니다.");
-              }
-            });
+
+            // cognito를 바로 call하지 않고 kakao/signup을 call한다.
+          //   Auth.signUp({
+          //     username,
+          //     password,
+          //     attributes: {
+          //       email,          // optional
+          //       // other custom attributes
+          //       'custom:kakaoId' : kakaoId
+          //     },
+          //     validationData: []  //optional
+          //   })
+          //   .then(data => {
+          //     console.log(data);
+          //     alert("회원가입이 완료 되었습니다.");
+          //   })
+          //   .catch(err => {
+          //     console.log("err", err)
+          //     if (err.code === "UsernameExistsException") {
+          //       alert("사용자가 이미 존재 합니다.");
+          //     }
+          //   });
           });
       },
       fail: function(err) {

@@ -16,10 +16,10 @@ const Nav = ()=>{
         <li><Link to="/token">KakaoTokenGetter</Link></li>
         <li><Link to="/login/">KakaoLogin</Link></li>
         {/*<li><Link to="/finder/">Finder</Link></li>*/}
-        {/*<li><Link to="/remember/">Remember</Link></li>*/}
-        <li><Link to="/signup/">회원가입(signup)</Link></li>
-        <li><Link to="/oauth/">oauth</Link></li>
-        {/*<li><Link to="/separate_sit/">자리배치</Link></li>*/}
+        <li><Link to="/remember/">Remember</Link></li>
+        {/*<li><Link to="/signup/">회원가입(signup)</Link></li>*/}
+        {/*<li><Link to="/oauth/">oauth</Link></li>*/}
+        <li><Link to="/separate_sit/">자리배치</Link></li>
       </ul>
     </nav>
   )
