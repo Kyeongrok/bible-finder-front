@@ -153,6 +153,8 @@ class BibleFinder extends Component {
         <br/>
         {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
         <button onClick={()=>this.handleClickShowKakao()}>로그인보이기</button><br/>
+        <a href={"https://docs.google.com/spreadsheets/d/1NkfE4j1oM0drkM7TC1zwAfPBBC5IPr4Wk4RPZeTft7o"}>한방에찾기</a>
+
       </div>
     )
 

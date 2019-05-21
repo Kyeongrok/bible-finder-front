@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
 
 class BibleFinder extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: ""};
+    this.state = {data: {index:"", text:""}, targetAddr:"롬5:2"};
+    this.handleChangeTargetAddr = this.handleChangeTargetAddr.bind(this);
   }
   componentDidMount(){
-    console.log("---");
-    const url = "http://biblefinder.co.kr:5000/json/find-single/%EC%B0%BD1:1";
+    this.findAndUpdate(this.state.targetAddr);
+  }
+
+  componentDidUpdate(prevState) {
+    console.log("updated-----")
+  }
+
+  handleChangeTargetAddr(event) {
+    this.setState({targetAddr: event.target.value});
+  }
+
+  handleClickFind() {
+    this.findAndUpdate(this.state.targetAddr);
+  }
+
+  findAndUpdate(addr) {
+    const url = "http://biblefinder.co.kr:5000/json/find-single/"+encodeURIComponent(addr);
+    console.log(addr, url);
     axios.get(url)
       .then(response=>{
         console.log(response);
@@ -20,8 +38,19 @@ class BibleFinder extends Component {
     console.log(this.state.data);
     return(
       <div>
-        찾을곳:<input type="text"/> ex) 딤후3:16<br/>
-        {`${this.state.data.index} ${this.state.data.text}`}
+        <Card>
+          <Card.Body>
+            <Card.Title>Finder</Card.Title>
+            <Card.Text>
+              찾을곳:<input type="text" onChange={this.handleChangeTargetAddr} value={this.state.targetAddr}/> ex) 딤후3:16<br/>
+              <Button onClick={()=>this.handleClickFind()}>찾기</Button>
+
+              <p>
+              {`${this.state.data.index} ${this.state.data.text}`}
+              </p>
+            </Card.Text>
+          </Card.Body>
+        </Card>
       </div>
     )
 
