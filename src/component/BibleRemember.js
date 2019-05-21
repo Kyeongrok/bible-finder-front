@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select'
 import axios from 'axios';
-import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
+import { InputGroup, FormControl, Form, Button, Card } from 'react-bootstrap';
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 
 const list = [
@@ -137,8 +137,10 @@ class BibleFinder extends Component {
             </Card.Text>
           </Card.Body>
           <Card.Body>
-            passed answers:<br/>
-            {this.state.passedAnswers.map(answer=><p key={Math.random()}>{answer.addr}</p>)}
+            <Card.Title>passed answers</Card.Title>
+            <Card.Text>
+              {this.state.passedAnswers.map(answer=><p key={Math.random()}>{answer.addr}</p>)}
+            </Card.Text>
           </Card.Body>
 
           <Card.Body>
@@ -155,23 +157,23 @@ class BibleFinder extends Component {
             <Card.Text>
               {this.state.showHint ? <p>{`${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
               answer:<br/>
-              <textarea value={this.state.value} onChange={this.handleChange} style={{width:"300px", height:"100px"}}></textarea>
-              <br/>
-              <Button as={"input"} size="sm" variant={"outline-primary"} onClick={()=>this.handleClickCheckAnswer()} value={"맞는지?"}/><br/>
+              <Form.Control as="textarea" rows="3" value={this.state.value} onChange={this.handleChange}/>
+              <ButtonToolbar>
+                <Button as={"input"} size="sm" variant={"outline-primary"} onClick={()=>this.handleClickCheckAnswer()} value={"맞는지?"}/><br/>
+                <Button as={"input"} size="sm" value={this.state.showAnswer?"답감추기":"답보이기"} onClick={()=>this.handleClickShowButton()}/>
+              </ButtonToolbar>
             </Card.Text>
           </Card.Body>
+          <Card.Body>
+            {this.state.showAnswer ?
+              <div>{`${this.state.data.text}`}</div>
+              :<div>답보이기 버튼을 누르면 답이 보입니다.</div>}
+            <Button size={"sm"} onClick={()=>this.handleClickNextQuestion(12)}>다음문제</Button>
+          </Card.Body>
         </Card>
-        <ButtonToolbar>
-          <Button as={"input"} size="sm" value={this.state.showAnswer?"답감추기":"답보이기"} onClick={()=>this.handleClickShowButton()}/>
-        </ButtonToolbar>
-        {this.state.showAnswer ?
-          <div>{`${this.state.data.text}`}</div>
-          :<div>답보이기 버튼을 누르면 답이 보입니다.</div>}
-        <br/>
-        <Button onClick={()=>this.handleClickNextQuestion(12)}>다음문제</Button>
         <br/>
         {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
-        <button onClick={()=>this.handleClickShowKakao()}>로그인보이기</button><br/>
+        <Button size={"sm"} onClick={()=>this.handleClickShowKakao()}>로그인보이기</Button><br/>
         <a href={"https://docs.google.com/spreadsheets/d/1NkfE4j1oM0drkM7TC1zwAfPBBC5IPr4Wk4RPZeTft7o"}>한방에찾기</a>
 
       </div>
