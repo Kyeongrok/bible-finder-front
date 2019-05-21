@@ -132,8 +132,10 @@ class BibleFinder extends Component {
           {this.state.passedAnswers.map(answer=><p key={Math.random()}>{answer.addr}</p>)}
           <br/>
           wrong answers:<br/>
+          <div className={"wrongAnswers"}>
           {this.state.wrongAnswers.map(answer=><p key={answer}>{answer}</p>)}
-          <br/><br/>
+          </div>
+          <br/>
         </div>
         문제{`${this.state.data.index}: ${this.state.data.addr}`}<button onClick={()=>this.handleClickHint()}>{this.state.showHint?"힌트감추기":"힌트보이기"}</button><br/>
         {this.state.showHint ? <p>{`${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
