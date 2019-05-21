@@ -7,22 +7,46 @@ import Signup from './component/Signup';
 import SeparateSit from './component/SeparateSit';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import KakaoTokenGetter from './component/KakaoTokenGetter';
+import { Dropdown } from 'react-bootstrap';
 
-const Nav = ()=>{
-  return(
-    <nav>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/token">KakaoTokenGetter</Link></li>
-        <li><Link to="/login/">KakaoLogin</Link></li>
-        <li><Link to="/finder/">Finder</Link></li>
-        <li><Link to="/remember/">Remember</Link></li>
-        {/*<li><Link to="/signup/">회원가입(signup)</Link></li>*/}
-        {/*<li><Link to="/oauth/">oauth</Link></li>*/}
-        <li><Link to="/separate_sit/">자리배치</Link></li>
-      </ul>
-    </nav>
-  )
+class Nav extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { isOpen: false }
+  }
+
+  handleOpen = () => {
+    console.log("--------");
+    this.setState({ isOpen: true })
+  }
+
+  handleClose = () => {
+    this.setState({ isOpen: false })
+  }
+  render(){
+    console.log(this.state.isOpen);
+    return(
+      <Dropdown
+        onMouseOver = { this.handleOpen }
+        onMouseLeave = { this.handleClose }
+        isOpen={ this.state.isOpen }
+      >
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          Menu
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item><Link to="/">Home</Link></Dropdown.Item>
+          <li><Link to="/token">KakaoTokenGetter</Link></li>
+          <li><Link to="/login/">KakaoLogin</Link></li>
+          <li><Link to="/finder/">Finder</Link></li>
+          <li><Link to="/remember/">Remember</Link></li>
+          {/*<li><Link to="/signup/">회원가입(signup)</Link></li>*/}
+          {/*<li><Link to="/oauth/">oauth</Link></li>*/}
+          <li><Link to="/separate_sit/">자리배치</Link></li>
+        </Dropdown.Menu>
+      </Dropdown>
+    )
+  }
 }
 
 class App extends Component {
@@ -47,8 +71,7 @@ class App extends Component {
     return (
     <Router>
       <div>
-        <button onMouseEnter={()=>this.handleClickMenu()} onClick={()=>this.handleClickMenu()}>menu</button>
-        {this.state.showNav ?<Nav/>:""}
+        <Nav/>
         <Route path="/" exact component={Signup}/>
         <Route path="/login/" component={KakaoLoginMaking}/>
         <Route path="/token/" component={KakaoTokenGetter}/>
