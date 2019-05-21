@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import Select from 'react-select'
 import axios from 'axios';
 
+const list = [
+  {"week":11, "addr":"창1:26", "text":"하나님이 이르시되 우리의 형상을 따라 우리의 모양대로 우리가 사람을 만들고 그들로 바다의 물고기와 하늘의 새와 가축과 온 땅과 땅에 기는 모든 것을 다스리게 하자 하시고"},
+  {"week":11, "addr":"고후5:17", "text":"그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다"},
+  {"week":12, "addr":"갈3:13", "text":"그리스도께서 우리를 위하여 저주를 받은 바 되사 율법의 저주에서 우리를 속량하셨으니 기록된 바 나무에 달린 자마다 저주 아래에 있는 자라 하였음이라"},
+  {"week":12, "addr":"롬4:25", "text":"예수는 우리가 범죄한 것 때문에 내줌이 되고 또한 우리를 의롭다 하시기 위하여 살아나셨느니라"}
+]
+
 class BibleFinder extends Component {
   constructor(props) {
     super(props);
@@ -56,14 +63,12 @@ class BibleFinder extends Component {
       })
     }
   }
-  handleClickNextQuestion(){
-    const url = "http://biblefinder.co.kr:5000/remember";
-    axios.get(url)
-      .then(response=>{
-        console.log(response);
-        this.setState({"data":response.data, "value":""})
-      })
-      .catch(error=>console.log(error))
+  handleClickNextQuestion(week){
+    const thisWeekList = list.filter(item => item.week === week);
+    const rnd = Math.floor(Math.random() * Math.floor(thisWeekList.length));
+    const data = thisWeekList[rnd];
+    data.index = rnd+1;
+    this.setState({"data":data, "value":""})
   }
 
   handleClickHint() {
@@ -83,7 +88,7 @@ class BibleFinder extends Component {
   }
   componentDidMount(){
     this.init();
-    this.handleClickNextQuestion();
+    this.handleClickNextQuestion(12);
   }
   handleClickRefresh(){
 
@@ -142,7 +147,7 @@ class BibleFinder extends Component {
           <div>{`${this.state.data.text}`}</div>
           :<div>답보이기 버튼을 누르면 답이 보입니다.</div>}
         <br/>
-        <button onClick={()=>this.handleClickNextQuestion()}>다음문제</button>
+        <button onClick={()=>this.handleClickNextQuestion(12)}>다음문제</button>
         <br/>
         {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
         <button onClick={()=>this.handleClickShowKakao()}>로그인보이기</button><br/>
