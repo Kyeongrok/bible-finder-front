@@ -29,10 +29,17 @@ class BibleRemember extends Component {
     this.handleClickCheckAnswer= this.handleClickCheckAnswer.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
   }
+
+  getWeek() {
+    return 13;
+  }
   init(){
+    // 몇주차인지 여기에서 한다.
+    const week = this.getWeek();
     this.setState({
       data: {"index":"", "addr":""},
       value:"",
+      week:week,
       showAnswer:false,
       showHint:false,
       showKakao:false,
@@ -58,7 +65,7 @@ class BibleRemember extends Component {
       passedAnswers.push(this.state.data);
       this.setState({passedAnswers:passedAnswers});
       this.init();
-      this.handleClickNextQuestion(12);
+      this.handleClickNextQuestion(this.getWeek());
     }else{
       this.setState({
         wrongAnswers: this.state.wrongAnswers.concat(this.state.value),
@@ -91,7 +98,7 @@ class BibleRemember extends Component {
   }
   componentDidMount(){
     this.init();
-    this.handleClickNextQuestion(12);
+    this.handleClickNextQuestion(this.getWeek());
   }
   handleClickRefresh(){
 
@@ -124,11 +131,11 @@ class BibleRemember extends Component {
       { value: 17, label: "17주차" },
       { value: 18, label: "18주차" },
     ]
-    console.log(this.state);
+    console.log(this.state.week);
     return(
       <Container>
         <Select options={options}
-                defaultValue={{ label: "1주차", value: 1 }}
+                defaultValue={options[this.state.week]}
                 onChange={this.handleChangeSelect}/>
         <Card>
           <Card.Body>
