@@ -104,6 +104,10 @@ class BibleRemember extends Component {
 
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // week가 바뀌면...
+  }
+
   handleChangeSelect(event) {
 
     this.setState({week: event.value});
