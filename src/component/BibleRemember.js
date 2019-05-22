@@ -8,8 +8,8 @@ const list = [
   {"week":11, "addr":"고후5:17", "text":"그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다"},
   {"week":12, "addr":"갈3:13", "text":"그리스도께서 우리를 위하여 저주를 받은 바 되사 율법의 저주에서 우리를 속량하셨으니 기록된 바 나무에 달린 자마다 저주 아래에 있는 자라 하였음이라"},
   {"week":12, "addr":"롬4:25", "text":"예수는 우리가 범죄한 것 때문에 내줌이 되고 또한 우리를 의롭다 하시기 위하여 살아나셨느니라"},
-  {"week":13, "addr":"eee", "text":"예수는 우리가 범죄한 것 때문에 내줌이 되고 또한 우리를 의롭다 하시기 위하여 살아나셨느니라"},
-  {"week":13, "addr":"aaa", "text":"예수는 우리가 범죄한 것 때문에 내줌이 되고 또한 우리를 의롭다 하시기 위하여 살아나셨느니라"},
+  {"week":13, "addr":"엡2:8-9", "text":"너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라 행위에서 난 것이 아니니 이는 누구든지 자랑하지 못하게 함이라"},
+  {"week":13, "addr":"고후5:21", "text":"하나님이 죄를 알지도 못하신 이를 우리를 대신하여 죄로 삼으신 것은 우리로 하여금 그 안에서 하나님의 의가 되게 하려 하심이라"},
 ]
 
 class BibleRemember extends Component {
@@ -135,7 +135,7 @@ class BibleRemember extends Component {
     return(
       <Container>
         <Select options={options}
-                defaultValue={options[this.state.week]}
+                defaultValue={options[this.getWeek()-1]}
                 onChange={this.handleChangeSelect}/>
         <Card>
           <Card.Body>
