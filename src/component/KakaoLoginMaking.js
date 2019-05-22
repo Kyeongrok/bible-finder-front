@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
-import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
+import {InputGroup, FormControl, Button, Card, Container} from 'react-bootstrap';
 import config from '../configuration/config';
 
 class KakaoLoginMaking extends Component{
@@ -107,7 +107,7 @@ class KakaoLoginMaking extends Component{
   render(){
     console.log(this.state.kakaoMe);
     return (
-      <div>
+      <Container>
         <InputGroup size="sm" className="mb-3" style={{ width: '18rem' }}>
           <InputGroup.Prepend>
             <InputGroup.Text id="inputGroup-sizing-sm">Id</InputGroup.Text>
@@ -147,7 +147,7 @@ class KakaoLoginMaking extends Component{
             </Card.Text>
           </Card.Body>
         </Card>
-      </div>
+      </Container>
     );
   }
 }

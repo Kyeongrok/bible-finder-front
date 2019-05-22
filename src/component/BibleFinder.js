@@ -37,21 +37,16 @@ class BibleFinder extends Component {
   render(){
     console.log(this.state.data);
     return(
-      <div>
-        <Card>
-          <Card.Body>
-            <Card.Title>Finder</Card.Title>
-            <Card.Text>
-              찾을곳:<input type="text" onChange={this.handleChangeTargetAddr} value={this.state.targetAddr}/> ex) 딤후3:16<br/>
-              <Button onClick={()=>this.handleClickFind()}>찾기</Button>
-
-              <p>
-              {`${this.state.data.index} ${this.state.data.text}`}
-              </p>
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
+      <Card>
+        <Card.Body>
+          <Card.Title>Finder</Card.Title>
+          <Card.Text>
+            찾을곳:<input type="text" onChange={this.handleChangeTargetAddr} value={this.state.targetAddr}/> ex) 딤후3:16<br/>
+            <Button onClick={()=>this.handleClickFind()}>찾기</Button>
+            {`${this.state.data.index} ${this.state.data.text}`}
+          </Card.Text>
+        </Card.Body>
+      </Card>
     )
 
   }

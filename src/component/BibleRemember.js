@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select'
-import axios from 'axios';
-import { InputGroup, FormControl, Form, Button, Card } from 'react-bootstrap';
+import {InputGroup, FormControl, Form, Button, Card, Container, Badge} from 'react-bootstrap';
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 
 const list = [
@@ -13,7 +12,7 @@ const list = [
   {"week":13, "addr":"aaa", "text":"예수는 우리가 범죄한 것 때문에 내줌이 되고 또한 우리를 의롭다 하시기 위하여 살아나셨느니라"},
 ]
 
-class BibleFinder extends Component {
+class BibleRemember extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,59 +126,51 @@ class BibleFinder extends Component {
     ]
     console.log(this.state);
     return(
-      <div>
+      <Container>
+        <Select options={options}
+                defaultValue={{ label: "1주차", value: 1 }}
+                onChange={this.handleChangeSelect}/>
         <Card>
           <Card.Body>
             <Card.Text>
-              <Select options={options}
-                      defaultValue={{ label: "1주차", value: 1 }}
-                      onChange={this.handleChangeSelect}/>
             </Card.Text>
           </Card.Body>
           <Card.Body>
             <Card.Title>passed answers</Card.Title>
             <Card.Text>
-              {this.state.passedAnswers.map(answer=><p key={Math.random()}>{answer.addr}</p>)}
+              {this.state.passedAnswers.map(answer=><Badge key={Math.random()}>{answer.addr}</Badge>)}
             </Card.Text>
           </Card.Body>
 
           <Card.Body>
             <Card.Title>wrong answers</Card.Title>
-            <Card.Text>
-
-              <div className={"wrongAnswers"}>
-                {this.state.wrongAnswers.map(answer=><p key={answer}>{answer}</p>)}
-              </div>
-            </Card.Text>
+              {this.state.wrongAnswers.map(answer=><Card.Text key={answer}>{answer}</Card.Text>)}
           </Card.Body>
           <Card.Body>
             <Card.Title>문제{`${this.state.data.index}: ${this.state.data.addr}`}<Button as="input" size="sm" value={this.state.showHint?"힌트감추기":"힌트보이기"} onClick={()=>this.handleClickHint()}/></Card.Title>
             <Card.Text>
-              {this.state.showHint ? <p>{`${this.state.data.text.substr(0, 8)}`}</p>:<p>힌트 버튼을 누르면 힌트가 보입니다.</p>}
+              {this.state.showHint ? `${this.state.data.text.substr(0, 8)}`:"힌트 버튼을 누르면 힌트가 보입니다."}<br/>
+
               answer:<br/>
               <Form.Control as="textarea" rows="3" value={this.state.value} onChange={this.handleChange}/>
-              <ButtonToolbar>
-                <Button as={"input"} size="sm" variant={"outline-primary"} onClick={()=>this.handleClickCheckAnswer()} value={"맞는지?"}/><br/>
-                <Button as={"input"} size="sm" value={this.state.showAnswer?"답감추기":"답보이기"} onClick={()=>this.handleClickShowButton()}/>
-              </ButtonToolbar>
+              <Button as={"input"} size="sm" variant={"outline-primary"} onClick={()=>this.handleClickCheckAnswer()} value={"맞는지?"}/><br/>
+              <Button as={"input"} size="sm" value={this.state.showAnswer?"답감추기":"답보이기"} onClick={()=>this.handleClickShowButton()}/>
             </Card.Text>
           </Card.Body>
           <Card.Body>
-            {this.state.showAnswer ?
-              <div>{`${this.state.data.text}`}</div>
-              :<div>답보이기 버튼을 누르면 답이 보입니다.</div>}
+            {this.state.showAnswer ?`${this.state.data.text}`:"답보이기 버튼을 누르면 답이 보입니다."}<br/>
             <Button size={"sm"} onClick={()=>this.handleClickNextQuestion(12)}>다음문제</Button>
           </Card.Body>
+          <Card.Body>
+            {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
+            <Button size={"sm"} onClick={()=>this.handleClickShowKakao()}>로그인보이기</Button><br/>
+          </Card.Body>
         </Card>
-        <br/>
-        {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>
-        <Button size={"sm"} onClick={()=>this.handleClickShowKakao()}>로그인보이기</Button><br/>
         <a href={"https://docs.google.com/spreadsheets/d/1NkfE4j1oM0drkM7TC1zwAfPBBC5IPr4Wk4RPZeTft7o"}>한방에찾기</a>
-
-      </div>
+      </Container>
     )
 
   }
 }
 
-export default BibleFinder;
+export default BibleRemember;

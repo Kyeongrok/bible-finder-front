@@ -45,13 +45,6 @@ class Signup extends Component {
             let COGNITO;
             COGNITO = this.state.cognitoInfo;
 
-            Amplify.configure({
-              Auth: {
-                userPoolId : COGNITO.USER_POOL_ID,
-                userPoolWebClientId : COGNITO.CLIENT_ID,
-                region: COGNITO.REGION
-              }
-            });
 
             // const email = kakaoAccount.email;
             const email = "oceanfog2@gmail.com";
@@ -65,26 +58,17 @@ class Signup extends Component {
             // cognito call을 해서 cognito에 가입까지 되도록 한다.
 
             // cognito를 바로 call하지 않고 kakao/signup을 call한다.
-          //   Auth.signUp({
-          //     username,
-          //     password,
-          //     attributes: {
-          //       email,          // optional
-          //       // other custom attributes
-          //       'custom:kakaoId' : kakaoId
-          //     },
-          //     validationData: []  //optional
-          //   })
-          //   .then(data => {
-          //     console.log(data);
-          //     alert("회원가입이 완료 되었습니다.");
-          //   })
-          //   .catch(err => {
-          //     console.log("err", err)
-          //     if (err.code === "UsernameExistsException") {
-          //       alert("사용자가 이미 존재 합니다.");
-          //     }
-          //   });
+            // {
+            //   "kakaoId":"1085645717",
+            //   "email":"oceanfog2@gmail.com",
+            //   "kakaoAccessToken": "u2wd-bCp-U2B44RjrA_QDm7c3zV2re6cICTa0QopyWAAAAFq2FUrwg"
+            // }
+            const dataa = {};
+            const signupUrl = "https://api.hanbitco-qa.com/";
+            axios.post(signupUrl, dataa)
+              .then(res => console.log(res))
+              .catch(e => console.log(e));
+
           });
       },
       fail: function(err) {
