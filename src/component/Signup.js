@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Kakao from 'kakaojs';
-import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
-import { Button, Alert } from 'react-bootstrap';
+import {Button, Alert, Container} from 'react-bootstrap';
 import config from '../configuration/config';
 
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = {"kakaoToken":{}, kakaoMe:null}
+    this.state = {
+      kakaoToken:{},
+      kakaoMe:null
+    }
   }
   componentDidMount(){
 
@@ -27,49 +29,54 @@ class Signup extends Component {
 
     this.setState({"kakao": Kakao, cognitoInfo:cnf.cognitoInfo})
   }
+
+  doKakaoLogin(params) {
+    let url = "https://api.hanbitco-qa.com/v1/kakao/login/";
+    console.log("[kakao_url]", url);
+    axios.post(url, params)
+      .then(res => {
+        // this.setState({kakaoMe: res})
+        console.log(res);
+        const data = res.data.data;
+        // 여기서 회원가입으로 이동
+        // cognito연동
+        let COGNITO;
+        COGNITO = this.state.cognitoInfo;
+
+        // const email = kakaoAccount.email;
+        const email = "oceanfog2@gmail.com";
+        const kakaoId = data.id.toString();
+        // 회원가입
+        console.log("회원가입하기", email, kakaoId);
+        const message = `${email}로 회원 가입 합니다. ${COGNITO.REGION}에서`;
+        alert(message);
+        // cognito call을 해서 cognito에 가입까지 되도록 한다.
+
+        // cognito를 바로 call하지 않고 kakao/signup을 call한다.
+        // {
+        //   "kakaoId":"1085645717",
+        //   "email":"oceanfog2@gmail.com",
+        //   "kakaoAccessToken": "u2wd-bCp-U2B44RjrA_QDm7c3zV2re6cICTa0QopyWAAAAFq2FUrwg"
+        // }
+        this.doSignup();
+
+      });
+  }
+
+  doSignup() {
+    const dataa = {};
+    const signupUrl = "https://api.hanbitco-qa.com/kakao/signup/";
+    axios.post(signupUrl, dataa, {headers:{"Content-Type":"application/json"}})
+      .then(res => console.log(res))
+      .catch(e => console.log(e));
+  }
+
   handleClickKakaoLogin() {
     this.state.kakao.Auth.login({
       success: (response) => {
         console.log("res:", response);
         this.setState({"kakaoToken": response});
-        let url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
-        url = "https://api.hanbitco-qa.com/v1/kakao/login/";
-        console.log("[kakao_url]", url);
-        axios.post(url, response)
-          .then(res => {
-            // this.setState({kakaoMe: res})
-            console.log(res);
-            const data = res.data.data;
-            // 여기서 회원가입으로 이동
-            // cognito연동
-            let COGNITO;
-            COGNITO = this.state.cognitoInfo;
-
-
-            // const email = kakaoAccount.email;
-            const email = "oceanfog2@gmail.com";
-            const kakaoId = data.id.toString();
-            const username = email;
-            const password = "1234@Aoeu";
-            // 회원가입
-            console.log("회원가입하기", email, kakaoId);
-            const message = `${email}로 회원 가입 합니다. ${COGNITO.REGION}에서`;
-            alert(message);
-            // cognito call을 해서 cognito에 가입까지 되도록 한다.
-
-            // cognito를 바로 call하지 않고 kakao/signup을 call한다.
-            // {
-            //   "kakaoId":"1085645717",
-            //   "email":"oceanfog2@gmail.com",
-            //   "kakaoAccessToken": "u2wd-bCp-U2B44RjrA_QDm7c3zV2re6cICTa0QopyWAAAAFq2FUrwg"
-            // }
-            const dataa = {};
-            const signupUrl = "https://api.hanbitco-qa.com/";
-            axios.post(signupUrl, dataa)
-              .then(res => console.log(res))
-              .catch(e => console.log(e));
-
-          });
+        this.doKakaoLogin(response);
       },
       fail: function(err) {
         alert(JSON.stringify(err));
@@ -78,7 +85,7 @@ class Signup extends Component {
   }
   render(){
     return(
-      <div>
+      <Container>
         <Alert variant="success">
           <Alert.Heading>카카오 회원가입</Alert.Heading>
           <p>accessToken:{JSON.stringify(this.state.kakaoToken)}</p>
@@ -89,7 +96,7 @@ class Signup extends Component {
           </p>
         </Alert>
         <Button onClick={()=>this.handleClickKakaoLogin()} variant="primary">회원가입</Button>
-      </div>
+      </Container>
     )
 
   }

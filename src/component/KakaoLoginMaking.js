@@ -96,7 +96,6 @@ class KakaoLoginMaking extends Component{
 
             // coginto login
             this.processLoginWithKakaoMe(data);
-
           });
       },
       fail:err=>{
@@ -108,29 +107,20 @@ class KakaoLoginMaking extends Component{
     console.log(this.state.kakaoMe);
     return (
       <Container>
-        <InputGroup size="sm" className="mb-3" style={{ width: '18rem' }}>
-          <InputGroup.Prepend>
-            <InputGroup.Text id="inputGroup-sizing-sm">Id</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-        </InputGroup>
-
-        <InputGroup size="sm" className="mb-3" style={{ width: '18rem' }}>
-          <InputGroup.Prepend>
-            <InputGroup.Text id="inputGroup-sizing-sm">Password</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-        </InputGroup>
-        <Button onClick={()=>this.handleClickLoginButton()}>한빗코 로그인</Button><br/>
-
-        <p>rest</p>
-        <a href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=kakaojs&response_type=code"}>
-          <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
-        </a>
-
-        <p>kakaojs</p>
-        <img alt={"aaaa"} onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
-         <br/>
+        <Card>
+          <Card.Body>
+            <Card.Title>rest</Card.Title>
+            <Card.Text>
+              <a href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=kakaojs&response_type=code"}>
+                <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
+              </a>
+            </Card.Text>
+            <Card.Title>kakaojs</Card.Title>
+            <Card.Text>
+              <img alt={"aaaa"} onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
+            </Card.Text>
+          </Card.Body>
+        </Card>
         <Card>
           <Card.Body>
             <Card.Title>IdToken</Card.Title>
