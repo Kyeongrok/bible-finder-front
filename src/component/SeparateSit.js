@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import seats from './Seats';
+import {Container} from "react-bootstrap";
 
 const Ttable=seats=> {
   const teamMap = {1:"경록", 2:"진주", 3:"윤준", 4:"창환", 5:"조총", 6:"다은", 7:"송", 8:"상수", 9:"예나", 10:"은진"}
   console.log(seats.seats);
   return(
+    <Container>
     <div>
       <br/>
       <table border="1px">
@@ -42,6 +44,7 @@ const Ttable=seats=> {
         </tbody>
       </table>
     </div>
+    </Container>
   )
 }
 
