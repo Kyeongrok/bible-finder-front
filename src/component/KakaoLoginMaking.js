@@ -45,7 +45,7 @@ class KakaoLoginMaking extends Component{
 
     Auth.signIn(email)
       .then(res => {
-        console.log("challengeName:", res.challengeName);
+        console.log("challengeName:", res.challengeName, "email:", email);
         if (res.challengeName === 'CUSTOM_CHALLENGE') {
           // to send the answer of the custom challenge
           let challengeResponse = data.data.id;
@@ -73,8 +73,7 @@ class KakaoLoginMaking extends Component{
     this.state.kakao.Auth.login({
       success: (response) => {
         console.log("res:", response);
-        let url = "http://ec2-13-209-75-254.ap-northeast-2.compute.amazonaws.com:3001/kakao";
-        url = "https://api.hanbitco-qa.com/v1/kakao/login/";
+        let url = "https://api.hanbitco-qa.com/v1/kakao/login/";
 
         console.log(url);
         axios.post(url, response)
