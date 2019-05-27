@@ -33,7 +33,12 @@ class BibleRemember extends Component {
   }
 
   getWeek() {
-    return 13;
+    const list = [13, 14];
+    const date = new Date();
+    console.log(date);
+    date.getDay()
+    console.log("getWeek:", date.getWeek(), "getDay:", date.getDay());
+    return list[1];
   }
   init(){
     // 몇주차인지 여기에서 한다.
