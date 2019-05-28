@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
-import {InputGroup, FormControl, Button, Card, Container, CardGroup} from 'react-bootstrap';
+import {InputGroup, FormControl, Button, Form, Card, Container, CardGroup} from 'react-bootstrap';
 import config from '../configuration/config';
 import Select from 'react-select'
 
@@ -155,13 +155,13 @@ class KakaoLoginMaking extends Component{
           <Card.Body>
             <Card.Title>IdToken</Card.Title>
             <Card.Text>
-              {this.state.idToken.toString()}
+              <Form.Control as="textarea" rows="3" value={this.state.idToken.toString()} onChange={()=>console.log()} />
             </Card.Text>
           </Card.Body>
           <Card.Body>
             <Card.Title>accessToken</Card.Title>
             <Card.Text>
-              {this.state.accessToken.toString()}
+              <Form.Control as="textarea" rows="3" value={this.state.accessToken.toString()} onChange={()=>console.log()} />
             </Card.Text>
           </Card.Body>
         </Card>

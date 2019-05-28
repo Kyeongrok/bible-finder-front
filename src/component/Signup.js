@@ -91,8 +91,7 @@ class Signup extends Component {
           <p>accessToken:{JSON.stringify(this.state.kakaoToken)}</p>
           <hr />
           <p className="mb-0">
-            Whenever you need to, be sure to use margin utilities to keep things nice
-            and tidy.
+            회원가입을 누르면 카카오에서 토큰을 받아서 kakao/v2/me를 호출해서 email, kakaoId를 받아서 진행 합니다.
           </p>
         </Alert>
         <Button onClick={()=>this.handleClickKakaoLogin()} variant="primary">회원가입</Button>

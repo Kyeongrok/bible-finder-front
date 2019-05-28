@@ -145,19 +145,16 @@ class BibleRemember extends Component {
                 onChange={this.handleChangeSelect}/>
         <Card>
           <Card.Body>
-            <Card.Text>
-            </Card.Text>
-          </Card.Body>
-          <Card.Body>
             <Card.Title>passed answers</Card.Title>
             <Card.Text>
-              {this.state.passedAnswers.map(answer=><Badge key={Math.random()}>{answer.addr}</Badge>)}
+              {this.state.passedAnswers.map(answer=><Badge variant={"secondary"} key={Math.random()}>{answer.addr}</Badge>)}
             </Card.Text>
           </Card.Body>
 
           <Card.Body>
             <Card.Title>wrong answers</Card.Title>
-              {this.state.wrongAnswers.map(answer=><Card.Text key={answer}>{answer}</Card.Text>)}
+              {/*{this.state.wrongAnswers.map(answer=><Card.Text key={answer}>{answer}</Card.Text>)}*/}
+            <Form.Control as="textarea" rows="3" value={this.state.wrongAnswers.map(answer=>answer + "\n")} onChange={()=>console.log()} />
           </Card.Body>
           <Card.Body>
             <Card.Title>문제{`${this.state.data.index}: ${this.state.data.addr}`}<Button as="input" size="sm" value={this.state.showHint?"힌트감추기":"힌트보이기"} onClick={()=>this.handleClickHint()}/></Card.Title>
@@ -169,10 +166,10 @@ class BibleRemember extends Component {
               <Button as={"input"} size="sm" variant={"outline-primary"} onClick={()=>this.handleClickCheckAnswer()} value={"맞는지?"}/><br/>
               <Button as={"input"} size="sm" value={this.state.showAnswer?"답감추기":"답보이기"} onClick={()=>this.handleClickShowButton()}/>
             </Card.Text>
-          </Card.Body>
-          <Card.Body>
-            {this.state.showAnswer ?`${this.state.data.text}`:"답보이기 버튼을 누르면 답이 보입니다."}<br/>
-            <Button size={"sm"} onClick={()=>this.handleClickNextQuestion(12)}>다음문제</Button>
+            <Card.Text>
+              {this.state.showAnswer ?`${this.state.data.text}`:"답보이기 버튼을 누르면 답이 보입니다."}<br/>
+              <Button size={"sm"} onClick={()=>this.handleClickNextQuestion(this.getWeek())}>다음문제</Button>
+            </Card.Text>
           </Card.Body>
           <Card.Body>
             {this.state.showKakao ?<img alt={"eee"} src={"https://usefulpa.s3.amazonaws.com/images/2014/kakao_account_login_btn_large_narrow_ov.png"} />:"---"}<br/>

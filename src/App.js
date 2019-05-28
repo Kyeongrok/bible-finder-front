@@ -8,6 +8,7 @@ import SeparateSit from './component/SeparateSit';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import KakaoTokenGetter from './component/KakaoTokenGetter';
 import {Button} from 'react-bootstrap';
+import ReadBook from './component/ReadBook';
 
 class Nav extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class Nav extends Component {
           {this.props.hostName !== "hanbitco-qa.firebaseapp.com"?<li><Link to="/remember/">Remember</Link></li>:""}
           <li><Link to="/signup/">회원가입(signup)</Link></li>
           {this.props.hostName !== "hanbitco-qa.firebaseapp.com"?<li><Link to="/separate_sit/">자리배치</Link></li>:""}
+          {this.props.hostName !== "hanbitco-qa.firebaseapp.com"?<li><Link to="/read_book/">readBook</Link></li>:""}
         </ul>
       </nav>
     )
@@ -72,6 +74,7 @@ class App extends Component {
         <Route path="/signup/" component={Signup}/>
         <Route path="/separate_sit/" component={SeparateSit}/>
         <Route path="/oauth/" component={KakaoTokenGetter}/>
+      <Route path="/read_book/" component={ReadBook}/>
     </Router>
     );
   }
