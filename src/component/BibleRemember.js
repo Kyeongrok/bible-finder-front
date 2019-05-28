@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import Select from 'react-select'
 import {InputGroup, FormControl, Form, Button, Card, Container, Badge} from 'react-bootstrap';
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import eee from '../libs/globalPrototype';
 
 const list = [
   {"week":11, "addr":"창1:26", "text":"하나님이 이르시되 우리의 형상을 따라 우리의 모양대로 우리가 사람을 만들고 그들로 바다의 물고기와 하늘의 새와 가축과 온 땅과 땅에 기는 모든 것을 다스리게 하자 하시고"},
   {"week":11, "addr":"고후5:17", "text":"그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다"},
   {"week":12, "addr":"갈3:13", "text":"그리스도께서 우리를 위하여 저주를 받은 바 되사 율법의 저주에서 우리를 속량하셨으니 기록된 바 나무에 달린 자마다 저주 아래에 있는 자라 하였음이라"},
   {"week":12, "addr":"롬4:25", "text":"예수는 우리가 범죄한 것 때문에 내줌이 되고 또한 우리를 의롭다 하시기 위하여 살아나셨느니라"},
-  {"week":13, "addr":"엡2:8-9", "text":"너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라 행위에서 난 것이 아니니 이는 누구든지 자랑하지 못하게 함이라"},
-  {"week":13, "addr":"고후5:21", "text":"하나님이 죄를 알지도 못하신 이를 우리를 대신하여 죄로 삼으신 것은 우리로 하여금 그 안에서 하나님의 의가 되게 하려 하심이라"},
-  {"week":14, "addr":"고전16:19-20", "text":"아시아의 교회들이 너희에게 문안하고 아굴라와 브리스가와 그 집에 있는 교회가 주 안에서 너희에게 간절히 문안하고 모든 형제도 너희에게 문안하니 너희는 거룩하게 입맞춤으로 서로 문안하라"},
-  {"week":14, "addr":"갈5:22-23", "text":"오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과 온유와 절제니 이같은 것을 금지할 법이 없느니라"},
+  {"week":14, "addr":"엡2:8-9", "text":"너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라 행위에서 난 것이 아니니 이는 누구든지 자랑하지 못하게 함이라"},
+  {"week":14, "addr":"고후5:21", "text":"하나님이 죄를 알지도 못하신 이를 우리를 대신하여 죄로 삼으신 것은 우리로 하여금 그 안에서 하나님의 의가 되게 하려 하심이라"},
+  {"week":15, "addr":"고전16:19-20", "text":"아시아의 교회들이 너희에게 문안하고 아굴라와 브리스가와 그 집에 있는 교회가 주 안에서 너희에게 간절히 문안하고 모든 형제도 너희에게 문안하니 너희는 거룩하게 입맞춤으로 서로 문안하라"},
+  {"week":15, "addr":"갈5:22-23", "text":"오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과 온유와 절제니 이같은 것을 금지할 법이 없느니라"},
 ]
 
 class BibleRemember extends Component {
@@ -24,7 +25,7 @@ class BibleRemember extends Component {
       showHint:false,
       showKakao:false,
       passedAnswers: [],
-      week:1,
+      week:this.getWeek(),
       wrongAnswers: []
     };
     this.handleChange = this.handleChange.bind(this);
@@ -33,12 +34,7 @@ class BibleRemember extends Component {
   }
 
   getWeek() {
-    const list = [13, 14];
-    const date = new Date();
-    console.log(date);
-    date.getDay()
-    console.log("getWeek:", date.getWeek(), "getDay:", date.getDay());
-    return list[1];
+    return new Date().getWeek(2) - 8;
   }
   init(){
     // 몇주차인지 여기에서 한다.
@@ -72,7 +68,7 @@ class BibleRemember extends Component {
       passedAnswers.push(this.state.data);
       this.setState({passedAnswers:passedAnswers});
       this.init();
-      this.handleClickNextQuestion(this.getWeek());
+      this.handleClickNextQuestion(this.state.week);
     }else{
       this.setState({
         wrongAnswers: this.state.wrongAnswers.concat(this.state.value),
