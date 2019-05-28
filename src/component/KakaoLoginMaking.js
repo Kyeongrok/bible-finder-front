@@ -2,21 +2,28 @@ import React, { Component } from 'react';
 import Kakao from 'kakaojs';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
-import {InputGroup, FormControl, Button, Card, Container} from 'react-bootstrap';
+import {InputGroup, FormControl, Button, Card, Container, CardGroup} from 'react-bootstrap';
 import config from '../configuration/config';
+import Select from 'react-select'
 
 class KakaoLoginMaking extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      "kakao":null,
+      profile:"qa",
+      kakao:null,
       kakaoMe:null,
       accessToken:"",
-      idToken:""
+      idToken:"",
+      kakaoToken:"",
+      username:""
     }
   }
 
-  handleClickLoginButton() {
+  handleChangeProfile(event) {
+    let cnf = config.get(event.value);
+    Kakao.init(cnf.javaScriptKey);
+    this.setState({"kakao": Kakao, cognitoInfo:cnf.cognitoInfo,profile: event.value})
   }
 
   componentDidMount(){
@@ -25,14 +32,14 @@ class KakaoLoginMaking extends Component{
     console.log("cnf:", cnf);
     if (Kakao.Auth == null) {
       if (hostname === "localhost") {
-        cnf = config.get('local');
+        cnf = config.get('qa2');
       }else if (hostname === "hanbitco-qa.firebaseapp.com") {
         cnf = config.get('qa');
       }
       console.log("hostname:", hostname, cnf);
       Kakao.init(cnf.javaScriptKey);
     }
-    this.setState({"kakao": Kakao, cognitoInfo:cnf.cognitoInfo})
+    this.setState({kakao: Kakao, cognitoInfo:cnf.cognitoInfo})
   }
   processLoginWithKakaoMe(data) {
     console.log(data);
@@ -92,6 +99,7 @@ class KakaoLoginMaking extends Component{
                 region: COGNITO.REGION
               }
             });
+            this.setState({kakaoToken: JSON.stringify(response), username:JSON.stringify(data.data)});
 
             // coginto login
             this.processLoginWithKakaoMe(data);
@@ -106,18 +114,41 @@ class KakaoLoginMaking extends Component{
     console.log(this.state.kakaoMe);
     return (
       <Container>
+        <Select options={[{ value: "qa", label: "qa" },{ value: "dev", label: "dev" }]}
+                defaultValue={ {value: "qa", label: "qa"} }
+                onChange={this.handleChangeProfile.bind(this)}/>
+        <CardGroup>
+          <Card>
+            <Card.Body>
+              <Card.Title>kakaojs</Card.Title>
+              <Card.Text>
+                <img alt={"aaaa"} onClick={() => this.handleClickKakaoLogin()}
+                     src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          <Card>
+            <Card.Body>
+              <Card.Title>rest</Card.Title>
+              <Card.Text>
+                <a
+                  href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=kakaojs&response_type=code"}>
+                  <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
+                </a>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </CardGroup>
+        <CardGroup>
         <Card>
           <Card.Body>
-            <Card.Title>rest</Card.Title>
-            <Card.Text>
-              <a href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=kakaojs&response_type=code"}>
-                <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
-              </a>
-            </Card.Text>
-            <Card.Title>kakaojs</Card.Title>
-            <Card.Text>
-              <img alt={"aaaa"} onClick={()=>this.handleClickKakaoLogin()} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/><br/>
-            </Card.Text>
+            cognitoInfo:{JSON.stringify(this.state.cognitoInfo)}
+          </Card.Body>
+          <Card.Body>
+            kakaoToken:{this.state.kakaoToken}
+          </Card.Body>
+          <Card.Body>
+            username:{this.state.username}
           </Card.Body>
         </Card>
         <Card>
@@ -127,8 +158,6 @@ class KakaoLoginMaking extends Component{
               {this.state.idToken.toString()}
             </Card.Text>
           </Card.Body>
-        </Card>
-        <Card>
           <Card.Body>
             <Card.Title>accessToken</Card.Title>
             <Card.Text>
@@ -136,6 +165,7 @@ class KakaoLoginMaking extends Component{
             </Card.Text>
           </Card.Body>
         </Card>
+        </CardGroup>
       </Container>
     );
   }

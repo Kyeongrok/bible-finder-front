@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select'
-import {InputGroup, FormControl, Form, Button, Card, Container, Badge} from 'react-bootstrap';
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import {Form, Button, Card, Container, Badge} from 'react-bootstrap';
 import eee from '../libs/globalPrototype';
 
 const list = [
@@ -139,7 +138,6 @@ class BibleRemember extends Component {
       { value: 17, label: "17주차" },
       { value: 18, label: "18주차" },
     ]
-    console.log(this.state.week);
     return(
       <Container>
         <Select options={options}

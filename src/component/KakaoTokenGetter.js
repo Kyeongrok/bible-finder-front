@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Kakao from 'kakaojs';
-import Amplify, { Auth } from 'aws-amplify';
-import axios from 'axios';
-import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import config from '../configuration/config';
 
 class TokenGetter extends Component {

@@ -9,8 +9,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import KakaoTokenGetter from './component/KakaoTokenGetter';
 import {Button} from 'react-bootstrap';
 
-import configuration from './configuration/config';
-
 class Nav extends Component {
   constructor(props) {
     super(props)
@@ -32,10 +30,10 @@ class Nav extends Component {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/token">KakaoTokenGetter</Link></li>
           <li><Link to="/login/">KakaoLogin</Link></li>
-          {this.props.hostName != "hanbitco-qa.firebaseapp.com"?<li><Link to="/finder/">Finder</Link></li>:""}
-          {this.props.hostName != "hanbitco-qa.firebaseapp.com"?<li><Link to="/remember/">Remember</Link></li>:""}
+          {this.props.hostName !== "hanbitco-qa.firebaseapp.com"?<li><Link to="/finder/">Finder</Link></li>:""}
+          {this.props.hostName !== "hanbitco-qa.firebaseapp.com"?<li><Link to="/remember/">Remember</Link></li>:""}
           <li><Link to="/signup/">회원가입(signup)</Link></li>
-          {this.props.hostName != "hanbitco-qa.firebaseapp.com"?<li><Link to="/separate_sit/">자리배치</Link></li>:""}
+          {this.props.hostName !== "hanbitco-qa.firebaseapp.com"?<li><Link to="/separate_sit/">자리배치</Link></li>:""}
         </ul>
       </nav>
     )
