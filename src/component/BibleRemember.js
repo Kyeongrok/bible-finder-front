@@ -27,7 +27,8 @@ class BibleRemember extends Component {
       showKakao:false,
       passedAnswers: [],
       week:this.getWeek(),
-      wrongAnswers: []
+      wrongAnswers: [],
+      answerIndex: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClickCheckAnswer= this.handleClickCheckAnswer.bind(this);
@@ -46,7 +47,7 @@ class BibleRemember extends Component {
       showAnswer:false,
       showHint:false,
       showKakao:false,
-      wrongAnswers: []
+      wrongAnswers: [],
     });
   }
   handleChange(event) {
@@ -76,12 +77,18 @@ class BibleRemember extends Component {
       })
     }
   }
-  handleClickNextQuestion(week){
+  handleClickNextQuestion(){
+    const week = this.state.week;
     const thisWeekList = list.filter(item => item.week === week);
     const rnd = Math.floor(Math.random() * Math.floor(thisWeekList.length));
+    let index = 0;
+    if(this.state.answerIndex - 1 < thisWeekList.length){
+      index = this.state.answerIndex + 1;
+    }else{
+
+    }
     const data = thisWeekList[rnd];
-    data.index = rnd+1;
-    this.setState({"data":data, "value":""})
+    this.setState({"data":data, "value":"", answerIndex:rnd})
   }
 
   handleClickHint() {
@@ -101,7 +108,7 @@ class BibleRemember extends Component {
   }
   componentDidMount(){
     this.init();
-    this.handleClickNextQuestion(this.getWeek());
+    this.handleClickNextQuestion();
   }
   handleClickRefresh(){
 
@@ -157,7 +164,9 @@ class BibleRemember extends Component {
             <Form.Control as="textarea" rows="3" value={this.state.wrongAnswers.map(answer=>answer + "\n")} onChange={()=>console.log()} />
           </Card.Body>
           <Card.Body>
-            <Card.Title>문제{`${this.state.data.index}: ${this.state.data.addr}`}<Button as="input" size="sm" value={this.state.showHint?"힌트감추기":"힌트보이기"} onClick={()=>this.handleClickHint()}/></Card.Title>
+            <Card.Title>문제{`${this.state.answerIndex}: ${this.state.data.addr}`}<Button as="input" size="sm" variant={"outline-primary"} value={this.state.showHint?"힌트감추기":"힌트보이기"} onClick={()=>this.handleClickHint()}/>
+              <Button size={"sm"} onClick={()=>this.handleClickNextQuestion()}>다음문제</Button>
+            </Card.Title>
             <Card.Text>
               {this.state.showHint ? `${this.state.data.text.substr(0, 8)}`:"힌트 버튼을 누르면 힌트가 보입니다."}<br/>
 
@@ -168,7 +177,6 @@ class BibleRemember extends Component {
             </Card.Text>
             <Card.Text>
               {this.state.showAnswer ?`${this.state.data.text}`:"답보이기 버튼을 누르면 답이 보입니다."}<br/>
-              <Button size={"sm"} onClick={()=>this.handleClickNextQuestion(this.getWeek())}>다음문제</Button>
             </Card.Text>
           </Card.Body>
           <Card.Body>
