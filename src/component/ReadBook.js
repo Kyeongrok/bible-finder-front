@@ -6,25 +6,31 @@ class ReadBook extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      statements:[]
     };
   }
 
+  componentDidMount(){
+    this.handleChangeAddr();
+  }
+
   handleChangeAddr() {
-    const url = `https://hetws2in6b.execute-api.ap-northeast-2.amazonaws.com/prod/v1/find/between?book=${"딤후"}&chapter=${"1"}&verseFrom=${"1"}&verseTo=${"2"}`;
+    const url = `https://bag6ly7sng.execute-api.ap-northeast-2.amazonaws.com/prod/v1/find/chapter?book=${"딤후"}&chapter=${1}`
     axios.get(url)
       .then(res => {
-        console.log(res);
+        this.setState({statements:res.data});
       });
   }
   render(){
+    console.log(this.state.statements);
 
     return (
       <Container>
         <Card>
           <Card.Text>
-            readBook
             <Button onClick={()=>this.handleChangeAddr()}>button</Button>
           </Card.Text>
+          {this.state.statements.map(statement=><Card.Text key={statement.index}>{statement.index + " " + statement.text}</Card.Text>)}
         </Card>
       </Container>
     )

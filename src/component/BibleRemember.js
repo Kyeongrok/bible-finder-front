@@ -36,7 +36,7 @@ class BibleRemember extends Component {
   }
 
   getWeek() {
-    return new Date().getWeek(2) - 9;
+    return new Date().getWeek(3) - 8;
   }
   init(){
     // 몇주차인지 여기에서 한다.

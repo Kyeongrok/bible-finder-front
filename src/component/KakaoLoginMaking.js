@@ -111,7 +111,9 @@ class KakaoLoginMaking extends Component{
     });
   }
   render(){
-    console.log(this.state.kakaoMe);
+    const url = "http://localhost:3001"
+    const encodedUrl = encodeURI(url);
+    console.log("encodedUrl:",encodedUrl, escape(url));
     return (
       <Container>
         <Select options={[{ value: "qa", label: "qa" },{ value: "dev", label: "dev" }]}
@@ -131,8 +133,9 @@ class KakaoLoginMaking extends Component{
             <Card.Body>
               <Card.Title>rest</Card.Title>
               <Card.Text>
+                {/*https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fclient_id%3Dec10db670bd119e740558ca82e00b250%26redirect_uri%3Dhttps%3A%2F%2Fupbit.com%2Foauth%26response_type%3Dcode*/}
                 <a
-                  href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=kakaojs&response_type=code"}>
+                  href={"https://kauth.kakao.com/oauth/authorize?client_id=cc0328e41a9f5bd8b1f36eaa9d381770&redirect_uri=http://localhost:3001/kakao/oauth"}>
                   <img alt={"kakao_login"} src={"https://kauth.kakao.com/public/widget/login/kr/kr_02_medium.png"}/>
                 </a>
               </Card.Text>
