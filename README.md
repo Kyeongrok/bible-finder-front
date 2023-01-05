@@ -2,7 +2,19 @@
 
 
 
-[바이블파인더 링크](http://bible-finder-vue.s3-website-ap-northeast-1.amazonaws.com/)
+<div align="center">
+ <img src="https://img.shields.io/badge/Vue-4FC08D.svg?logo=Vue.js&logoColor=white" />
+ <img src="https://img.shields.io/badge/AwsLambda-FF9900.svg?logo=AWS-Lambda&logoColor=white" />
+ <img src="https://img.shields.io/badge/Python-3776AB.svg?logo=Python&logoColor=white" />
+</div>
+
+
+
+![image](https://user-images.githubusercontent.com/1642243/210727807-c3cf8801-1cba-4566-92f9-27237f920e91.png)
+
+
+
+[앱 링크](http://bible-finder-vue.s3-website-ap-northeast-1.amazonaws.com/)
 
 
 
